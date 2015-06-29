@@ -10,27 +10,38 @@ var WSServer = require('ws').Server,
 
 
 Server.prototype.run = function () {
-
+    'use strict';
     // create server
-    var wss = new WSServer(this.options);
+    this.wss = new WSServer(this.options);
 
     // establish connection
-    wss.on('connection', (this.connection.bind(this)));
+    this.wss.on('connection', (this.connection.bind(this)));
 };
 
 Server.prototype.connection = function (ws) {
     'use strict';
 
     console.info('Server.js: Connection established');
-    ws.on('message', this.incoming);
-
-    ws.send('msg msg');
+    ws.on('message', (this.incoming.bind(this)));
 };
 
 Server.prototype.incoming = function (message) {
     'use strict';
-
     console.info('Server.js: Incoming message "%s"', message);
+
+    // TODO: save into db
+
+    // broadcast to all users
+    this.broadcast(message);
+};
+
+Server.prototype.broadcast = function (data) {
+    'use strict';
+    console.info('Server.js: Broadcasting %s', data);
+
+    this.wss.clients.forEach(function each(client) {
+        client.send(data);
+    });
 };
 
 module.exports.Server = Server;

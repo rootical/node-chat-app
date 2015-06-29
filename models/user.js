@@ -1,3 +1,5 @@
+/*jslint node: true */
+
 var crypto = require('crypto'),
     Users = {},
     User = {
@@ -7,6 +9,8 @@ var crypto = require('crypto'),
         role: '',
 
         setPassword: function (decryptedPassword) {
+            'use strict';
+
             var md5sum = crypto.createHash('md5');
             md5sum.update(decryptedPassword);
             this.password = md5sum.digest('hex');
