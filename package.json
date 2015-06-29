@@ -1,0 +1,13 @@
+{
+    "name": "node-chat-app",
+    "version": "0.0.1",
+    "private": "true",
+    "dependencies": {
+        "express": "*",
+        "jade": "*",
+        "connect-mongo": "*",
+        "mongojs": "*",
+        "less-middleware": "1.0.4",
+        "morgan": "*"
+    }
+}
