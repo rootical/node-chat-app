@@ -5,9 +5,9 @@
     "dependencies": {
         "express": "*",
         "jade": "*",
-        "connect-mongo": "*",
         "mongojs": "*",
         "less-middleware": "1.0.4",
-        "morgan": "*"
+        "morgan": "*",
+        "ws": "0.7.2"
     }
 }

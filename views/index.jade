@@ -1,0 +1,14 @@
+extends ./_layouts/main.jade
+block content
+    #ContentMain
+        #ChatPane
+            #ChatMessages
+
+              ul
+                each message in messages
+                    include ./_layouts/message.jade
+            .chatControlls
+                #ChatInput
+                    input(name='message')
+                #ChatSend
+                    button Send
