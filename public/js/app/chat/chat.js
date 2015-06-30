@@ -8,12 +8,15 @@
         });
     }
 
-    function ChatCtrl($scope) {
+    function ChatCtrl($rootScope, $scope) {
 
         var vm = this;
 
         $scope.messages = [];
         $scope.keyBindings = vm.keyBindings;
+        $scope.user = $rootScope.user;
+
+        console.log($rootScope.user, '-----');
 
         vm.ws = new WebSocket("ws://" + window.location.host); // NOTE investigate this "location.host" if it isn't causing any troubles
 
@@ -43,7 +46,7 @@
         var vm = this;
 
         $scope.messages.push({
-            author: '',
+            author: $scope.user.name,
             content: wsEvent.data,
             timestamp: ''
         });
@@ -65,10 +68,9 @@
         }
     };
 
-
     // assigns whole stuff to angular methods
     angular.module('ncApp.chat', ['ngRoute'])
         .config(['$routeProvider', ChatConfig])
-        .controller('ChatCtrl', ['$scope', ChatCtrl]);
+        .controller('ChatCtrl', ['$rootScope', '$scope', ChatCtrl]);
 
 })();

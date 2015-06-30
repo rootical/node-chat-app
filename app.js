@@ -27,18 +27,22 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
 // less, css, js, img directories
+/*
 app.use(require('less-middleware')('/less', {
     debug: true,
     dest: '/css',
     pathRoot: path.join(__dirname, 'public'),
     force: true
 }));
+*/
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use(require('./controllers'));
+app.use(require('./controllers/api/users.js'));
+//app.use(require('./controllers/api'));
 
-app.get('*', function (req, res) {
+// lets run the Angular
+app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'public/js/app/index.html'));
 });
 
@@ -48,5 +52,6 @@ app.get('*', function (req, res) {
 app.server = http.createServer(app);
 app.server.listen(3000);
 
+// web services server start
 wss = new Server({server: app.server});
 wss.run();

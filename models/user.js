@@ -6,7 +6,7 @@ var crypto = require('crypto'),
         name: '',
         password: '',
         email: '',
-        role: '',
+        role: 'ANONYMOUS',
 
         setPassword: function (decryptedPassword) {
             'use strict';
@@ -14,6 +14,14 @@ var crypto = require('crypto'),
             var md5sum = crypto.createHash('md5');
             md5sum.update(decryptedPassword);
             this.password = md5sum.digest('hex');
+        },
+
+        getData: function () {
+            return {
+                name: this.name,
+                email: this.email,
+                role: this.role
+            }
         }
     },
 
@@ -28,19 +36,19 @@ var crypto = require('crypto'),
 
 // create admin role
 Users.admin = Object.create(Admin, {
-    name:   { value: 'Admin' },
+    name:   { value: 'admin' },
     email:  { value: 'admn@example.com' }
 });
 
 Users.admin.setPassword('admin');
 
 //create simple role
-Users.simple = Object.create(Simple, {
-    name: { value: 'User' },
+Users.user = Object.create(Simple, {
+    name: { value: 'user' },
     email: { value: 'user@example.com' }
 });
 
-Users.simple.setPassword('user');
+Users.user.setPassword('user');
 
 module.exports.User = User;
 module.exports.Users = Users;
