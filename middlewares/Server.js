@@ -32,7 +32,7 @@ Server.prototype.incoming = function (message) {
     // TODO: save into db
 
     // broadcast to all users
-    this.broadcast(message);
+    this.broadcast.call(this, message);
 };
 
 Server.prototype.broadcast = function (data) {

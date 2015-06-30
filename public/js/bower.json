@@ -1,0 +1,12 @@
+{
+  "name": "node-chat-app",
+  "version": "0.0.1",
+  "homepage": "",
+  "license": "",
+  "private": true,
+  "dependencies": {
+    "angular": "1.3.x",
+    "angular-route": "1.3.x",
+	"bootstrap": "3.3.5"
+  }
+}

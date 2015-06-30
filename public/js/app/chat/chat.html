@@ -1,0 +1,19 @@
+<div class="chatPane">
+    <div class="chatMessages">
+        <ul ng-repeat="message in messages">
+            <li>
+                <span class="chatMsgAuthor">{{message.author}}</span>
+                <span class="chatMsgContent">{{message.content}}</span>
+                <span class="chatMsgTime">{{message.timestamp}}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="chatControls">
+        <div class="chatInput">
+            <input class="form-control" name="message" type="text" value="" ng-model="chat.message" ng-keydown="keyBindings($event)" ng-disabled="!connectionEstablished" />
+        </div>
+        <div class="chatMsgSend">
+            <button class="btn btn-primary" ng-disabled="!connectionEstablished" ng-click="send()">Send</button>
+        </div>
+    </div>
+</div>

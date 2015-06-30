@@ -36,7 +36,12 @@ app.use(require('less-middleware')('/less', {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(require('./controllers'));
+//app.use(require('./controllers'));
+
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'public/js/app/index.html'));
+});
+
 
 //console.log(Users.simple.name);
 
