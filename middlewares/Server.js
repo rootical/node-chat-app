@@ -6,6 +6,8 @@ var WSServer = require('ws').Server,
         'use strict';
 
         this.options = options;
+
+        console.info('Server.js: Creating WS server');
     };
 
 
@@ -37,7 +39,7 @@ Server.prototype.incoming = function (message) {
 
 Server.prototype.broadcast = function (data) {
     'use strict';
-    console.info('Server.js: Broadcasting %s', data);
+    console.info('Server.js: Broadcasting message');
 
     this.wss.clients.forEach(function each(client) {
         client.send(data);

@@ -1,13 +1,21 @@
 {
-    "name": "node-chat-app",
-    "version": "0.0.1",
-    "private": "true",
-    "dependencies": {
-        "express": "*",
-        "jade": "*",
-        "mongojs": "*",
-        "less-middleware": "1.0.4",
-        "morgan": "*",
-        "ws": "0.7.2"
-    }
+  "name": "node-chat-app",
+  "version": "0.0.1",
+  "private": "true",
+  "dependencies": {
+    "express": "*",
+    "jade": "*",
+    "mongojs": "*",
+    "less-middleware": "1.0.4",
+    "morgan": "*",
+    "ws": "0.7.2",
+    "randomcolor": "0.3.0"
+  },
+  "devDependencies": {
+    "gulp": "3.9.x",
+    "gulp-less": "3.0.x",
+    "gulp-minify-css": "1.2.x",
+    "gulp-uglify": "1.2.x",
+    "gulp-rename": "1.2.x"
+  }
 }

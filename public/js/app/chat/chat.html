@@ -1,8 +1,8 @@
-<div class="chatPane">
+<div class="chatPane" id="Chat">
     <div class="chatMessages">
-        <ul ng-repeat="message in messages" class="{{user.role.toLowerCase()}}">
-            <li>
-                <span class="chatMsgAuthor">{{message.author}}</span>
+        <ul>
+            <li ng-repeat="message in messages" class="{{message.role.toLowerCase()}}">
+                <span class="chatMsgAuthor" style="color: {{message.color}}">{{message.author}}</span>:
                 <span class="chatMsgContent">{{message.content}}</span>
                 <span class="chatMsgTime">{{message.timestamp}}</span>
             </li>

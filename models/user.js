@@ -1,12 +1,14 @@
 /*jslint node: true */
 
 var crypto = require('crypto'),
+    randomColor = require('randomcolor'),
     Users = {},
     User = {
         name: '',
         password: '',
         email: '',
         role: 'ANONYMOUS',
+        color: '#989898',
 
         setPassword: function (decryptedPassword) {
             'use strict';
@@ -16,12 +18,23 @@ var crypto = require('crypto'),
             this.password = md5sum.digest('hex');
         },
 
+        setColor: function () {
+            'use strict';
+
+            this.color = randomColor({
+                luminosity: 'dark'
+            });
+        },
+
         getData: function () {
+            'use strict';
+
             return {
                 name: this.name,
                 email: this.email,
-                role: this.role
-            }
+                role: this.role,
+                color: this.color
+            };
         }
     },
 
@@ -41,6 +54,7 @@ Users.admin = Object.create(Admin, {
 });
 
 Users.admin.setPassword('admin');
+Users.admin.setColor();
 
 //create simple role
 Users.user = Object.create(Simple, {
@@ -49,6 +63,7 @@ Users.user = Object.create(Simple, {
 });
 
 Users.user.setPassword('user');
+Users.user.setColor();
 
 module.exports.User = User;
 module.exports.Users = Users;

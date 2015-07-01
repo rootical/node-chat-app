@@ -1,0 +1,20 @@
+#Chat {
+
+    .chatMessages {
+        & ul {
+            list-style-type: none;
+
+            & > li {
+                margin: 0px;
+                padding: 0px;
+
+                &.admin {
+                    & .chatMsgAuthor {
+                        font-weight: bold;
+                    }
+                }
+            }
+
+        }
+    }
+}

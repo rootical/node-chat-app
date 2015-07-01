@@ -16,8 +16,6 @@
         $scope.keyBindings = vm.keyBindings;
         $scope.user = $rootScope.user;
 
-        console.log($rootScope.user, '-----');
-
         vm.ws = new WebSocket("ws://" + window.location.host); // NOTE investigate this "location.host" if it isn't causing any troubles
 
         vm.ws.onopen = (vm.wsOnOpen.bind(vm, $scope));
@@ -31,7 +29,13 @@
         $scope.connectionEstablished = 1;
         $scope.send = function () {
             if ($scope.chat.message.length) {
-                vm.ws.send($scope.chat.message);
+
+                var pkg = {}; // message package
+                pkg.content = $scope.chat.message;
+                pkg.user = $scope.user;
+
+                vm.ws.send(JSON.stringify(pkg));
+
                 $scope.chat.message = '';
             }
         };
@@ -43,16 +47,27 @@
 
     ChatCtrl.prototype.wsOnMessage = function ($scope, wsEvent) {
 
-        var vm = this;
+        var vm = this,
+            pkg;
 
-        $scope.messages.push({
-            author: $scope.user.name,
-            content: wsEvent.data,
-            timestamp: ''
-        });
+        try {
 
-        // updates bindings and watchers
-        $scope.$digest();
+            pkg = JSON.parse(wsEvent.data);
+
+        } catch (err) {
+
+        } finally {
+            $scope.messages.push({
+                author: pkg.user.name,
+                content: pkg.content,
+                timestamp: '',
+                color: pkg.user.color,
+                role: pkg.user.role
+            });
+
+            // updates bindings and watchers
+            $scope.$digest();
+        }
     };
 
     ChatCtrl.prototype.keyBindings = function (event) {
