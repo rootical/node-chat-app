@@ -2,6 +2,7 @@ var gulp = require('gulp'),
     minifyCss = require('gulp-minify-css'),
     less = require('gulp-less'),
     rename = require('gulp-rename'),
+    uglify = require('gulp-uglify'),
 
     path = require('path');
 
@@ -23,9 +24,15 @@ gulp.task('css', function () {
         .pipe(gulp.dest('./public/css'));
 });
 
+// right now is too inconvenient to debugging with compression
 gulp.task('js', function () {
 
+    return gulp.src('./public/js/app/**/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('./public/js/libs'));
+
 });
+
 
 // watch for changes
 gulp.task('watch', function() {
@@ -36,4 +43,4 @@ gulp.task('watch', function() {
 
 
 // Default Task
-gulp.task('default', ['less', 'css', 'js', 'watch']);
+gulp.task('default', ['less', 'css', 'watch']);
