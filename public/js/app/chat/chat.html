@@ -1,5 +1,5 @@
 <div class="chatPane" id="Chat">
-    <div class="chatMessages">
+    <div class="chatMessages" scroll-glue>
         <ul>
             <li ng-repeat="message in messages" class="{{message.role.toLowerCase()}}">
                 <span class="chatMsgAuthor" style="color: {{message.color}}">{{message.author}}</span>:

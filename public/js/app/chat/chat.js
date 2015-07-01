@@ -84,8 +84,8 @@
     };
 
     // assigns whole stuff to angular methods
-    angular.module('ncApp.chat', ['ngRoute'])
+    // 'luegg.directives' - scroll on adding new line to pane
+    angular.module('ncApp.chat', ['ngRoute', 'luegg.directives'])
         .config(['$routeProvider', ChatConfig])
         .controller('ChatCtrl', ['$rootScope', '$scope', ChatCtrl]);
-
 })();

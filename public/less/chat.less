@@ -1,7 +1,24 @@
 #Chat {
 
+    width: 80%;
+    max-width: 600px;
+    margin: 0px auto;
+    padding: 20px;
+    background-color: #e8e8e8;
+    .box-shadow;
+
     .chatMessages {
+        overflow-x: hidden;
+        overflow-y: scroll;
+
+        height: 200px;
+        padding: 10px;
+
+        background-color: #fff;
+
         & ul {
+            margin: 0px;
+            padding: 0px;
             list-style-type: none;
 
             & > li {
@@ -13,7 +30,22 @@
                         font-weight: bold;
                     }
                 }
+
+                &.anonymous {
+                    & .chatMsgAuthor {
+                        font-style: italic;
+                    }
+                }
             }
+        }
+    }
+
+    .chatControls {
+        margin: 20px 0px;
+
+        & button {
+            margin: 20px 0;
+            width: 100%;
         }
     }
 }
