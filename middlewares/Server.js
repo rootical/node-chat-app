@@ -2,12 +2,20 @@
 
 var WSServer = require('ws').Server,
 
+    // singleton with a cached static property
     Server = function (options) {
         'use strict';
 
-        this.options = options;
+        if (typeof Server.instance === 'object') {
+            return Server.instance;
+        }
 
+        this.options = options;
         console.info('Server.js: Creating WS server');
+
+        Server.instance = this;
+
+        return this;
     };
 
 

@@ -1,4 +1,4 @@
-/*jslint node: true */
+/*jslint node: true nomen: true*/
 
 var express = require('express'),
     path = require('path'),
@@ -7,8 +7,6 @@ var express = require('express'),
     path = require('path'),
 
     Server = require('./middlewares/Server').Server,
-    Users = require('./models/user.js').Users,
-
     // mongo
     //mongoUri = '',
     //collections = [""],
@@ -53,5 +51,6 @@ app.server = http.createServer(app);
 app.server.listen(3000);
 
 // web services server start
+wss = new Server({server: app.server});
 wss = new Server({server: app.server});
 wss.run();
