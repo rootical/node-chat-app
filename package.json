@@ -9,7 +9,8 @@
     "less-middleware": "1.0.4",
     "morgan": "*",
     "ws": "0.7.2",
-    "randomcolor": "0.3.0"
+    "randomcolor": "0.3.0",
+    "private-parts": "0.4.x"
   },
   "devDependencies": {
     "gulp": "3.9.x",

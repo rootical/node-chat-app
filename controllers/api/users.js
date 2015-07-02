@@ -1,46 +1,26 @@
 var express = require('express'),
     router = express.Router(),
-    users = require('../../models/user.js');
 
+    availableUsers = require('../../mocks/users.js').available,
 
-//router.use('/comments', require('./comments'));
-//router.use('/users', require('./users'));
+    Anonym = require('../../middlewares/User.js').Anonym;
 
 /*
     Get user by id.
-
 */
 router.get('/api/users/:username', function(req, res) {
 
-    var currentUser = users.User,
-        availableUsers = users.Users;
-
+    var currentUser;
 
     if(availableUsers[req.params.username]) {
         currentUser = availableUsers[req.params.username];
     } else {
-        currentUser.name = req.params.username;
+        currentUser = new Anonym(req.params.username);
     }
 
     res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(currentUser.getData(), null, 2));
+    res.send(JSON.stringify(currentUser.getUserData(), null, 2));
 
-    /*
-    res.render('index', {
-        messages: [
-            {
-                author: 'Admin',
-                content: 'M1',
-                timestamp: '12:44'
-            },
-            {
-                author: 'User',
-                content: 'M2',
-                timestamp: '12:45'
-            }
-        ]
-    });
-    */
 });
 
 
