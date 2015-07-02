@@ -10,7 +10,8 @@
     "morgan": "*",
     "ws": "0.7.2",
     "randomcolor": "0.3.0",
-    "private-parts": "0.4.x"
+    "private-parts": "0.4.x",
+    "mongoose": "4.0.x"
   },
   "devDependencies": {
     "gulp": "3.9.x",

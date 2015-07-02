@@ -1,22 +1,25 @@
 /*jslint node: true */
 
 var WSServer = require('ws').Server,
+    Message = require('../models/message.js'),
+    Server;
 
-    // singleton with a cached static property
-    Server = function (options) {
-        'use strict';
 
-        if (typeof Server.instance === 'object') {
-            return Server.instance;
-        }
+// singleton with a cached static property
+Server = function (options) {
+    'use strict';
 
-        this.options = options;
-        console.info('Server.js: Creating WS server');
+    if (typeof Server.instance === 'object') {
+        return Server.instance;
+    }
 
-        Server.instance = this;
+    this.options = options;
+    console.info('Server.js: Creating WS server');
 
-        return this;
-    };
+    Server.instance = this;
+
+    return this;
+};
 
 
 Server.prototype.run = function () {
@@ -35,14 +38,27 @@ Server.prototype.connection = function (ws) {
     ws.on('message', (this.incoming.bind(this)));
 };
 
-Server.prototype.incoming = function (message) {
+Server.prototype.incoming = function (msg) {
     'use strict';
-    console.info('Server.js: Incoming message "%s"', message);
+    var message,
+        msgObj = JSON.parse(msg);
 
-    // TODO: save into db
+    console.info('Server.js: Incoming message "%s"', msg);
+
+    // save into DB
+    Message.create({
+        author: msgObj.user.name,
+        text: msgObj.content
+    }, function (err) {
+        if (err) {
+            throw err;
+        }
+
+        console.info('Server.js: Message has been saved into DB');
+    });
 
     // broadcast to all users
-    this.broadcast.call(this, message);
+    this.broadcast.call(this, msg);
 };
 
 Server.prototype.broadcast = function (data) {

@@ -5,14 +5,12 @@ var express = require('express'),
     morgan = require('morgan'),
     http = require('http'),
     path = require('path'),
+    mongoose = require('mongoose'),
 
     Server = require('./middlewares/Server').Server,
-    // mongo
-    //mongoUri = '',
-    //collections = [""],
-    //db = require("mongojs").connect(mongoUri, collections), // "username:password@example.com/mydb"
+    database = require('./config/database'),
 
-    // variables
+    // clean variables
     wss,
 
     // init express
@@ -23,6 +21,9 @@ app.use(morgan('dev'));
 // set view
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+
+// mongose
+mongoose.connect(database.url);
 
 // less, css, js, img directories
 /*
