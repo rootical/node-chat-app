@@ -4,7 +4,7 @@
     max-width: 600px;
     margin: 0px auto;
     padding: 20px;
-    background-color: #e8e8e8;
+    background-color: @chatBackgroundColor;
     .box-shadow;
 
     .chatMessages {
@@ -25,6 +25,12 @@
                 margin: 0px;
                 padding: 0px;
 
+                & .chatMsgTime {
+                    color: @chatBackgroundColor;
+                    font-size: 6px;
+                }
+
+
                 &.admin {
                     & .chatMsgAuthor {
                         font-weight: bold;
@@ -33,6 +39,7 @@
 
                 &.anonymous {
                     & .chatMsgAuthor {
+                        color: @chatAnonymousColor;
                         font-style: italic;
                     }
                 }

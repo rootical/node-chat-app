@@ -1,1 +1,829 @@
-#Chat{width:80%;max-width:600px;margin:0 auto;padding:20px;background-color:#e8e8e8;box-shadow:0 0 6px rgba(0,0,0,.75)}#Chat,#LoginPane{-moz-box-shadow:0 0 6px rgba(0,0,0,.75);-o-box-shadow:0 0 6px rgba(0,0,0,.75);-webkit-box-shadow:0 0 6px rgba(0,0,0,.75)}#Chat .chatMessages{overflow-x:hidden;overflow-y:scroll;height:200px;padding:10px;background-color:#fff}#Chat .chatMessages ul{margin:0;padding:0;list-style-type:none}#Chat .chatMessages ul>li{margin:0;padding:0}#Chat .chatMessages ul>li.admin .chatMsgAuthor{font-weight:700}#Chat .chatMessages ul>li.anonymous .chatMsgAuthor{font-style:italic}#Chat .chatControls{margin:20px 0}#Chat .chatControls button{margin:20px 0;width:100%}#LoginPane{width:300px;height:200px;margin:40px auto;padding:20px;text-align:center;background-color:#e8e8e8;box-shadow:0 0 6px rgba(0,0,0,.75)}#LoginPane .form-group{margin-top:10%}#LoginPane button{width:50%;margin:20px auto}
+#Chat {
+  width: 80%;
+  max-width: 600px;
+  margin: 0px auto;
+  padding: 20px;
+  background-color: #e8e8e8;
+  -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.75);
+  -o-box-shadow: 0 0 6px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.75);
+}
+#Chat .chatMessages {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 200px;
+  padding: 10px;
+  background-color: #fff;
+}
+#Chat .chatMessages ul {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+}
+#Chat .chatMessages ul > li {
+  margin: 0px;
+  padding: 0px;
+}
+#Chat .chatMessages ul > li .chatMsgTime {
+  color: #e8e8e8;
+  font-size: 6px;
+}
+#Chat .chatMessages ul > li.admin .chatMsgAuthor {
+  font-weight: bold;
+}
+#Chat .chatMessages ul > li.anonymous .chatMsgAuthor {
+  color: #a8a8a8;
+  font-style: italic;
+}
+#Chat .chatControls {
+  margin: 20px 0px;
+}
+#Chat .chatControls button {
+  margin: 20px 0;
+  width: 100%;
+}
+#LoginPane {
+  width: 300px;
+  height: 200px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #e8e8e8;
+  -moz-box-shadow: 0 0 6px rgba(0, 0, 0, 0.75);
+  -o-box-shadow: 0 0 6px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.75);
+}
+#LoginPane .form-group {
+  margin-top: 10%;
+}
+#LoginPane button {
+  width: 50%;
+  margin: 20px auto;
+}
+.chatMsgAuthorLanguage {
+  display: inline-block;
+  width: 16px;
+  height: 11px;
+  background: url(../img/flags.png) no-repeat;
+}
+.chatMsgAuthorLanguage.flag-ad {
+  background-position: -16px 0;
+}
+.chatMsgAuthorLanguage.flag-ae {
+  background-position: -32px 0;
+}
+.chatMsgAuthorLanguage.flag-af {
+  background-position: -48px 0;
+}
+.chatMsgAuthorLanguage.flag-ag {
+  background-position: -64px 0;
+}
+.chatMsgAuthorLanguage.flag-ai {
+  background-position: -80px 0;
+}
+.chatMsgAuthorLanguage.flag-al {
+  background-position: -96px 0;
+}
+.chatMsgAuthorLanguage.flag-am {
+  background-position: -112px 0;
+}
+.chatMsgAuthorLanguage.flag-an {
+  background-position: -128px 0;
+}
+.chatMsgAuthorLanguage.flag-ao {
+  background-position: -144px 0;
+}
+.chatMsgAuthorLanguage.flag-ar {
+  background-position: -160px 0;
+}
+.chatMsgAuthorLanguage.flag-as {
+  background-position: -176px 0;
+}
+.chatMsgAuthorLanguage.flag-at {
+  background-position: -192px 0;
+}
+.chatMsgAuthorLanguage.flag-au {
+  background-position: -208px 0;
+}
+.chatMsgAuthorLanguage.flag-aw {
+  background-position: -224px 0;
+}
+.chatMsgAuthorLanguage.flag-az {
+  background-position: -240px 0;
+}
+.chatMsgAuthorLanguage.flag-ba {
+  background-position: 0 -11px;
+}
+.chatMsgAuthorLanguage.flag-bb {
+  background-position: -16px -11px;
+}
+.chatMsgAuthorLanguage.flag-bd {
+  background-position: -32px -11px;
+}
+.chatMsgAuthorLanguage.flag-be {
+  background-position: -48px -11px;
+}
+.chatMsgAuthorLanguage.flag-bf {
+  background-position: -64px -11px;
+}
+.chatMsgAuthorLanguage.flag-bg {
+  background-position: -80px -11px;
+}
+.chatMsgAuthorLanguage.flag-bh {
+  background-position: -96px -11px;
+}
+.chatMsgAuthorLanguage.flag-bi {
+  background-position: -112px -11px;
+}
+.chatMsgAuthorLanguage.flag-bj {
+  background-position: -128px -11px;
+}
+.chatMsgAuthorLanguage.flag-bm {
+  background-position: -144px -11px;
+}
+.chatMsgAuthorLanguage.flag-bn {
+  background-position: -160px -11px;
+}
+.chatMsgAuthorLanguage.flag-bo {
+  background-position: -176px -11px;
+}
+.chatMsgAuthorLanguage.flag-br {
+  background-position: -192px -11px;
+}
+.chatMsgAuthorLanguage.flag-bs {
+  background-position: -208px -11px;
+}
+.chatMsgAuthorLanguage.flag-bt {
+  background-position: -224px -11px;
+}
+.chatMsgAuthorLanguage.flag-bv {
+  background-position: -240px -11px;
+}
+.chatMsgAuthorLanguage.flag-bw {
+  background-position: 0 -22px;
+}
+.chatMsgAuthorLanguage.flag-by {
+  background-position: -16px -22px;
+}
+.chatMsgAuthorLanguage.flag-bz {
+  background-position: -32px -22px;
+}
+.chatMsgAuthorLanguage.flag-ca {
+  background-position: -48px -22px;
+}
+.chatMsgAuthorLanguage.flag-catalonia {
+  background-position: -64px -22px;
+}
+.chatMsgAuthorLanguage.flag-cd {
+  background-position: -80px -22px;
+}
+.chatMsgAuthorLanguage.flag-cf {
+  background-position: -96px -22px;
+}
+.chatMsgAuthorLanguage.flag-cg {
+  background-position: -112px -22px;
+}
+.chatMsgAuthorLanguage.flag-ch {
+  background-position: -128px -22px;
+}
+.chatMsgAuthorLanguage.flag-ci {
+  background-position: -144px -22px;
+}
+.chatMsgAuthorLanguage.flag-ck {
+  background-position: -160px -22px;
+}
+.chatMsgAuthorLanguage.flag-cl {
+  background-position: -176px -22px;
+}
+.chatMsgAuthorLanguage.flag-cm {
+  background-position: -192px -22px;
+}
+.chatMsgAuthorLanguage.flag-cn {
+  background-position: -208px -22px;
+}
+.chatMsgAuthorLanguage.flag-co {
+  background-position: -224px -22px;
+}
+.chatMsgAuthorLanguage.flag-cr {
+  background-position: -240px -22px;
+}
+.chatMsgAuthorLanguage.flag-cu {
+  background-position: 0 -33px;
+}
+.chatMsgAuthorLanguage.flag-cv {
+  background-position: -16px -33px;
+}
+.chatMsgAuthorLanguage.flag-cw {
+  background-position: -32px -33px;
+}
+.chatMsgAuthorLanguage.flag-cy {
+  background-position: -48px -33px;
+}
+.chatMsgAuthorLanguage.flag-cz {
+  background-position: -64px -33px;
+}
+.chatMsgAuthorLanguage.flag-de {
+  background-position: -80px -33px;
+}
+.chatMsgAuthorLanguage.flag-dj {
+  background-position: -96px -33px;
+}
+.chatMsgAuthorLanguage.flag-dk {
+  background-position: -112px -33px;
+}
+.chatMsgAuthorLanguage.flag-dm {
+  background-position: -128px -33px;
+}
+.chatMsgAuthorLanguage.flag-do {
+  background-position: -144px -33px;
+}
+.chatMsgAuthorLanguage.flag-dz {
+  background-position: -160px -33px;
+}
+.chatMsgAuthorLanguage.flag-ec {
+  background-position: -176px -33px;
+}
+.chatMsgAuthorLanguage.flag-ee {
+  background-position: -192px -33px;
+}
+.chatMsgAuthorLanguage.flag-eg {
+  background-position: -208px -33px;
+}
+.chatMsgAuthorLanguage.flag-eh {
+  background-position: -224px -33px;
+}
+.chatMsgAuthorLanguage.flag-england {
+  background-position: -240px -33px;
+}
+.chatMsgAuthorLanguage.flag-er {
+  background-position: 0 -44px;
+}
+.chatMsgAuthorLanguage.flag-es {
+  background-position: -16px -44px;
+}
+.chatMsgAuthorLanguage.flag-et {
+  background-position: -32px -44px;
+}
+.chatMsgAuthorLanguage.flag-eu {
+  background-position: -48px -44px;
+}
+.chatMsgAuthorLanguage.flag-fi {
+  background-position: -64px -44px;
+}
+.chatMsgAuthorLanguage.flag-fj {
+  background-position: -80px -44px;
+}
+.chatMsgAuthorLanguage.flag-fk {
+  background-position: -96px -44px;
+}
+.chatMsgAuthorLanguage.flag-fm {
+  background-position: -112px -44px;
+}
+.chatMsgAuthorLanguage.flag-fo {
+  background-position: -128px -44px;
+}
+.chatMsgAuthorLanguage.flag-fr {
+  background-position: -144px -44px;
+}
+.chatMsgAuthorLanguage.flag-ga {
+  background-position: -160px -44px;
+}
+.chatMsgAuthorLanguage.flag-gb {
+  background-position: -176px -44px;
+}
+.chatMsgAuthorLanguage.flag-gd {
+  background-position: -192px -44px;
+}
+.chatMsgAuthorLanguage.flag-ge {
+  background-position: -208px -44px;
+}
+.chatMsgAuthorLanguage.flag-gf {
+  background-position: -224px -44px;
+}
+.chatMsgAuthorLanguage.flag-gg {
+  background-position: -240px -44px;
+}
+.chatMsgAuthorLanguage.flag-gh {
+  background-position: 0 -55px;
+}
+.chatMsgAuthorLanguage.flag-gi {
+  background-position: -16px -55px;
+}
+.chatMsgAuthorLanguage.flag-gl {
+  background-position: -32px -55px;
+}
+.chatMsgAuthorLanguage.flag-gm {
+  background-position: -48px -55px;
+}
+.chatMsgAuthorLanguage.flag-gn {
+  background-position: -64px -55px;
+}
+.chatMsgAuthorLanguage.flag-gp {
+  background-position: -80px -55px;
+}
+.chatMsgAuthorLanguage.flag-gq {
+  background-position: -96px -55px;
+}
+.chatMsgAuthorLanguage.flag-gr {
+  background-position: -112px -55px;
+}
+.chatMsgAuthorLanguage.flag-gs {
+  background-position: -128px -55px;
+}
+.chatMsgAuthorLanguage.flag-gt {
+  background-position: -144px -55px;
+}
+.chatMsgAuthorLanguage.flag-gu {
+  background-position: -160px -55px;
+}
+.chatMsgAuthorLanguage.flag-gw {
+  background-position: -176px -55px;
+}
+.chatMsgAuthorLanguage.flag-gy {
+  background-position: -192px -55px;
+}
+.chatMsgAuthorLanguage.flag-hk {
+  background-position: -208px -55px;
+}
+.chatMsgAuthorLanguage.flag-hm {
+  background-position: -224px -55px;
+}
+.chatMsgAuthorLanguage.flag-hn {
+  background-position: -240px -55px;
+}
+.chatMsgAuthorLanguage.flag-hr {
+  background-position: 0 -66px;
+}
+.chatMsgAuthorLanguage.flag-ht {
+  background-position: -16px -66px;
+}
+.chatMsgAuthorLanguage.flag-hu {
+  background-position: -32px -66px;
+}
+.chatMsgAuthorLanguage.flag-ic {
+  background-position: -48px -66px;
+}
+.chatMsgAuthorLanguage.flag-id {
+  background-position: -64px -66px;
+}
+.chatMsgAuthorLanguage.flag-ie {
+  background-position: -80px -66px;
+}
+.chatMsgAuthorLanguage.flag-il {
+  background-position: -96px -66px;
+}
+.chatMsgAuthorLanguage.flag-im {
+  background-position: -112px -66px;
+}
+.chatMsgAuthorLanguage.flag-in {
+  background-position: -128px -66px;
+}
+.chatMsgAuthorLanguage.flag-io {
+  background-position: -144px -66px;
+}
+.chatMsgAuthorLanguage.flag-iq {
+  background-position: -160px -66px;
+}
+.chatMsgAuthorLanguage.flag-ir {
+  background-position: -176px -66px;
+}
+.chatMsgAuthorLanguage.flag-is {
+  background-position: -192px -66px;
+}
+.chatMsgAuthorLanguage.flag-it {
+  background-position: -208px -66px;
+}
+.chatMsgAuthorLanguage.flag-je {
+  background-position: -224px -66px;
+}
+.chatMsgAuthorLanguage.flag-jm {
+  background-position: -240px -66px;
+}
+.chatMsgAuthorLanguage.flag-jo {
+  background-position: 0 -77px;
+}
+.chatMsgAuthorLanguage.flag-jp {
+  background-position: -16px -77px;
+}
+.chatMsgAuthorLanguage.flag-ke {
+  background-position: -32px -77px;
+}
+.chatMsgAuthorLanguage.flag-kg {
+  background-position: -48px -77px;
+}
+.chatMsgAuthorLanguage.flag-kh {
+  background-position: -64px -77px;
+}
+.chatMsgAuthorLanguage.flag-ki {
+  background-position: -80px -77px;
+}
+.chatMsgAuthorLanguage.flag-km {
+  background-position: -96px -77px;
+}
+.chatMsgAuthorLanguage.flag-kn {
+  background-position: -112px -77px;
+}
+.chatMsgAuthorLanguage.flag-kp {
+  background-position: -128px -77px;
+}
+.chatMsgAuthorLanguage.flag-kr {
+  background-position: -144px -77px;
+}
+.chatMsgAuthorLanguage.flag-kurdistan {
+  background-position: -160px -77px;
+}
+.chatMsgAuthorLanguage.flag-kw {
+  background-position: -176px -77px;
+}
+.chatMsgAuthorLanguage.flag-ky {
+  background-position: -192px -77px;
+}
+.chatMsgAuthorLanguage.flag-kz {
+  background-position: -208px -77px;
+}
+.chatMsgAuthorLanguage.flag-la {
+  background-position: -224px -77px;
+}
+.chatMsgAuthorLanguage.flag-lb {
+  background-position: -240px -77px;
+}
+.chatMsgAuthorLanguage.flag-lc {
+  background-position: 0 -88px;
+}
+.chatMsgAuthorLanguage.flag-li {
+  background-position: -16px -88px;
+}
+.chatMsgAuthorLanguage.flag-lk {
+  background-position: -32px -88px;
+}
+.chatMsgAuthorLanguage.flag-lr {
+  background-position: -48px -88px;
+}
+.chatMsgAuthorLanguage.flag-ls {
+  background-position: -64px -88px;
+}
+.chatMsgAuthorLanguage.flag-lt {
+  background-position: -80px -88px;
+}
+.chatMsgAuthorLanguage.flag-lu {
+  background-position: -96px -88px;
+}
+.chatMsgAuthorLanguage.flag-lv {
+  background-position: -112px -88px;
+}
+.chatMsgAuthorLanguage.flag-ly {
+  background-position: -128px -88px;
+}
+.chatMsgAuthorLanguage.flag-ma {
+  background-position: -144px -88px;
+}
+.chatMsgAuthorLanguage.flag-mc {
+  background-position: -160px -88px;
+}
+.chatMsgAuthorLanguage.flag-md {
+  background-position: -176px -88px;
+}
+.chatMsgAuthorLanguage.flag-me {
+  background-position: -192px -88px;
+}
+.chatMsgAuthorLanguage.flag-mg {
+  background-position: -208px -88px;
+}
+.chatMsgAuthorLanguage.flag-mh {
+  background-position: -224px -88px;
+}
+.chatMsgAuthorLanguage.flag-mk {
+  background-position: -240px -88px;
+}
+.chatMsgAuthorLanguage.flag-ml {
+  background-position: 0 -99px;
+}
+.chatMsgAuthorLanguage.flag-mm {
+  background-position: -16px -99px;
+}
+.chatMsgAuthorLanguage.flag-mn {
+  background-position: -32px -99px;
+}
+.chatMsgAuthorLanguage.flag-mo {
+  background-position: -48px -99px;
+}
+.chatMsgAuthorLanguage.flag-mp {
+  background-position: -64px -99px;
+}
+.chatMsgAuthorLanguage.flag-mq {
+  background-position: -80px -99px;
+}
+.chatMsgAuthorLanguage.flag-mr {
+  background-position: -96px -99px;
+}
+.chatMsgAuthorLanguage.flag-ms {
+  background-position: -112px -99px;
+}
+.chatMsgAuthorLanguage.flag-mt {
+  background-position: -128px -99px;
+}
+.chatMsgAuthorLanguage.flag-mu {
+  background-position: -144px -99px;
+}
+.chatMsgAuthorLanguage.flag-mv {
+  background-position: -160px -99px;
+}
+.chatMsgAuthorLanguage.flag-mw {
+  background-position: -176px -99px;
+}
+.chatMsgAuthorLanguage.flag-mx {
+  background-position: -192px -99px;
+}
+.chatMsgAuthorLanguage.flag-my {
+  background-position: -208px -99px;
+}
+.chatMsgAuthorLanguage.flag-mz {
+  background-position: -224px -99px;
+}
+.chatMsgAuthorLanguage.flag-na {
+  background-position: -240px -99px;
+}
+.chatMsgAuthorLanguage.flag-nc {
+  background-position: 0 -110px;
+}
+.chatMsgAuthorLanguage.flag-ne {
+  background-position: -16px -110px;
+}
+.chatMsgAuthorLanguage.flag-nf {
+  background-position: -32px -110px;
+}
+.chatMsgAuthorLanguage.flag-ng {
+  background-position: -48px -110px;
+}
+.chatMsgAuthorLanguage.flag-ni {
+  background-position: -64px -110px;
+}
+.chatMsgAuthorLanguage.flag-nl {
+  background-position: -80px -110px;
+}
+.chatMsgAuthorLanguage.flag-no {
+  background-position: -96px -110px;
+}
+.chatMsgAuthorLanguage.flag-np {
+  background-position: -112px -110px;
+}
+.chatMsgAuthorLanguage.flag-nr {
+  background-position: -128px -110px;
+}
+.chatMsgAuthorLanguage.flag-nu {
+  background-position: -144px -110px;
+}
+.chatMsgAuthorLanguage.flag-nz {
+  background-position: -160px -110px;
+}
+.chatMsgAuthorLanguage.flag-om {
+  background-position: -176px -110px;
+}
+.chatMsgAuthorLanguage.flag-pa {
+  background-position: -192px -110px;
+}
+.chatMsgAuthorLanguage.flag-pe {
+  background-position: -208px -110px;
+}
+.chatMsgAuthorLanguage.flag-pf {
+  background-position: -224px -110px;
+}
+.chatMsgAuthorLanguage.flag-pg {
+  background-position: -240px -110px;
+}
+.chatMsgAuthorLanguage.flag-ph {
+  background-position: 0 -121px;
+}
+.chatMsgAuthorLanguage.flag-pk {
+  background-position: -16px -121px;
+}
+.chatMsgAuthorLanguage.flag-pl {
+  background-position: -32px -121px;
+}
+.chatMsgAuthorLanguage.flag-pm {
+  background-position: -48px -121px;
+}
+.chatMsgAuthorLanguage.flag-pn {
+  background-position: -64px -121px;
+}
+.chatMsgAuthorLanguage.flag-pr {
+  background-position: -80px -121px;
+}
+.chatMsgAuthorLanguage.flag-ps {
+  background-position: -96px -121px;
+}
+.chatMsgAuthorLanguage.flag-pt {
+  background-position: -112px -121px;
+}
+.chatMsgAuthorLanguage.flag-pw {
+  background-position: -128px -121px;
+}
+.chatMsgAuthorLanguage.flag-py {
+  background-position: -144px -121px;
+}
+.chatMsgAuthorLanguage.flag-qa {
+  background-position: -160px -121px;
+}
+.chatMsgAuthorLanguage.flag-re {
+  background-position: -176px -121px;
+}
+.chatMsgAuthorLanguage.flag-ro {
+  background-position: -192px -121px;
+}
+.chatMsgAuthorLanguage.flag-rs {
+  background-position: -208px -121px;
+}
+.chatMsgAuthorLanguage.flag-ru {
+  background-position: -224px -121px;
+}
+.chatMsgAuthorLanguage.flag-rw {
+  background-position: -240px -121px;
+}
+.chatMsgAuthorLanguage.flag-sa {
+  background-position: 0 -132px;
+}
+.chatMsgAuthorLanguage.flag-sb {
+  background-position: -16px -132px;
+}
+.chatMsgAuthorLanguage.flag-sc {
+  background-position: -32px -132px;
+}
+.chatMsgAuthorLanguage.flag-scotland {
+  background-position: -48px -132px;
+}
+.chatMsgAuthorLanguage.flag-sd {
+  background-position: -64px -132px;
+}
+.chatMsgAuthorLanguage.flag-se {
+  background-position: -80px -132px;
+}
+.chatMsgAuthorLanguage.flag-sg {
+  background-position: -96px -132px;
+}
+.chatMsgAuthorLanguage.flag-sh {
+  background-position: -112px -132px;
+}
+.chatMsgAuthorLanguage.flag-si {
+  background-position: -128px -132px;
+}
+.chatMsgAuthorLanguage.flag-sk {
+  background-position: -144px -132px;
+}
+.chatMsgAuthorLanguage.flag-sl {
+  background-position: -160px -132px;
+}
+.chatMsgAuthorLanguage.flag-sm {
+  background-position: -176px -132px;
+}
+.chatMsgAuthorLanguage.flag-sn {
+  background-position: -192px -132px;
+}
+.chatMsgAuthorLanguage.flag-so {
+  background-position: -208px -132px;
+}
+.chatMsgAuthorLanguage.flag-somaliland {
+  background-position: -224px -132px;
+}
+.chatMsgAuthorLanguage.flag-sr {
+  background-position: -240px -132px;
+}
+.chatMsgAuthorLanguage.flag-ss {
+  background-position: 0 -143px;
+}
+.chatMsgAuthorLanguage.flag-st {
+  background-position: -16px -143px;
+}
+.chatMsgAuthorLanguage.flag-sv {
+  background-position: -32px -143px;
+}
+.chatMsgAuthorLanguage.flag-sx {
+  background-position: -48px -143px;
+}
+.chatMsgAuthorLanguage.flag-sy {
+  background-position: -64px -143px;
+}
+.chatMsgAuthorLanguage.flag-sz {
+  background-position: -80px -143px;
+}
+.chatMsgAuthorLanguage.flag-tc {
+  background-position: -96px -143px;
+}
+.chatMsgAuthorLanguage.flag-td {
+  background-position: -112px -143px;
+}
+.chatMsgAuthorLanguage.flag-tf {
+  background-position: -128px -143px;
+}
+.chatMsgAuthorLanguage.flag-tg {
+  background-position: -144px -143px;
+}
+.chatMsgAuthorLanguage.flag-th {
+  background-position: -160px -143px;
+}
+.chatMsgAuthorLanguage.flag-tibet {
+  background-position: -176px -143px;
+}
+.chatMsgAuthorLanguage.flag-tj {
+  background-position: -192px -143px;
+}
+.chatMsgAuthorLanguage.flag-tk {
+  background-position: -208px -143px;
+}
+.chatMsgAuthorLanguage.flag-tl {
+  background-position: -224px -143px;
+}
+.chatMsgAuthorLanguage.flag-tm {
+  background-position: -240px -143px;
+}
+.chatMsgAuthorLanguage.flag-tn {
+  background-position: 0 -154px;
+}
+.chatMsgAuthorLanguage.flag-to {
+  background-position: -16px -154px;
+}
+.chatMsgAuthorLanguage.flag-tr {
+  background-position: -32px -154px;
+}
+.chatMsgAuthorLanguage.flag-tt {
+  background-position: -48px -154px;
+}
+.chatMsgAuthorLanguage.flag-tv {
+  background-position: -64px -154px;
+}
+.chatMsgAuthorLanguage.flag-tw {
+  background-position: -80px -154px;
+}
+.chatMsgAuthorLanguage.flag-tz {
+  background-position: -96px -154px;
+}
+.chatMsgAuthorLanguage.flag-ua {
+  background-position: -112px -154px;
+}
+.chatMsgAuthorLanguage.flag-ug {
+  background-position: -128px -154px;
+}
+.chatMsgAuthorLanguage.flag-um {
+  background-position: -144px -154px;
+}
+.chatMsgAuthorLanguage.flag-us {
+  background-position: -160px -154px;
+}
+.chatMsgAuthorLanguage.flag-uy {
+  background-position: -176px -154px;
+}
+.chatMsgAuthorLanguage.flag-uz {
+  background-position: -192px -154px;
+}
+.chatMsgAuthorLanguage.flag-va {
+  background-position: -208px -154px;
+}
+.chatMsgAuthorLanguage.flag-vc {
+  background-position: -224px -154px;
+}
+.chatMsgAuthorLanguage.flag-ve {
+  background-position: -240px -154px;
+}
+.chatMsgAuthorLanguage.flag-vg {
+  background-position: 0 -165px;
+}
+.chatMsgAuthorLanguage.flag-vi {
+  background-position: -16px -165px;
+}
+.chatMsgAuthorLanguage.flag-vn {
+  background-position: -32px -165px;
+}
+.chatMsgAuthorLanguage.flag-vu {
+  background-position: -48px -165px;
+}
+.chatMsgAuthorLanguage.flag-wales {
+  background-position: -64px -165px;
+}
+.chatMsgAuthorLanguage.flag-wf {
+  background-position: -80px -165px;
+}
+.chatMsgAuthorLanguage.flag-ws {
+  background-position: -96px -165px;
+}
+.chatMsgAuthorLanguage.flag-xk {
+  background-position: -112px -165px;
+}
+.chatMsgAuthorLanguage.flag-ye {
+  background-position: -128px -165px;
+}
+.chatMsgAuthorLanguage.flag-yt {
+  background-position: -144px -165px;
+}
+.chatMsgAuthorLanguage.flag-za {
+  background-position: -160px -165px;
+}
+.chatMsgAuthorLanguage.flag-zanzibar {
+  background-position: -176px -165px;
+}
+.chatMsgAuthorLanguage.flag-zm {
+  background-position: -192px -165px;
+}
+.chatMsgAuthorLanguage.flag-zw {
+  background-position: -208px -165px;
+}
