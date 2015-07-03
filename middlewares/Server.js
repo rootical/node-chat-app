@@ -48,7 +48,8 @@ Server.prototype.incoming = function (msg) {
     // save into DB
     Message.create({
         author: msgObj.user.name,
-        text: msgObj.content
+        text: msgObj.content,
+        language: msgObj.user.language
     }, function (err) {
         if (err) {
             throw err;

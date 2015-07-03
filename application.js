@@ -16,6 +16,10 @@ var express = require('express'),
     // init express
     app = module.exports = express();
 
+// current users in default chat
+global.USERS = {};
+global.USERS.def = {};
+
 app.use(morgan('dev'));
 
 // set view
@@ -37,8 +41,9 @@ app.use(require('less-middleware')('/less', {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(require('./controllers/api/index.js'));
 app.use(require('./controllers/api/users.js'));
-//app.use(require('./controllers/api'));
+app.use(require('./controllers/api/messages.js'));
 
 // lets run the Angular
 app.get('/', function (req, res) {

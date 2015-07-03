@@ -2,7 +2,8 @@
     <div class="chatMessages" scroll-glue>
         <ul>
             <li ng-repeat="message in messages" class="{{message.role.toLowerCase()}}">
-                <span class="chatMsgAuthor" ng-style="{'color': message.color}">{{message.author}}</span>:
+                <span class="chatMsgAuthor" ng-style="{'color': message.color}">{{message.author}}</span>
+                <span ng-if="message.language && message.language != 'en'" class="chatMsgAuthorLanguage flag-{{message.language}}"></span>
                 <span class="chatMsgContent">{{message.content}}</span>
                 <span class="chatMsgTime">{{message.timestamp}}</span>
             </li>

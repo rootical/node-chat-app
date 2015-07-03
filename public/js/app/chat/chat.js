@@ -8,66 +8,95 @@
         });
     }
 
-    function ChatCtrl($rootScope, $scope) {
+    function ChatCtrl($rootScope, $scope, Restangular) {
 
         var vm = this;
 
-        $scope.messages = [];
-        $scope.keyBindings = vm.keyBindings;
-        $scope.user = $rootScope.user;
+        vm.scope = $scope;
+        vm.scope.messages = [];
+        vm.scope.keyBindings = vm.keyBindings;
+
+        vm.scope.user = $rootScope.user;
+
+        vm.restangular = Restangular;
 
         vm.ws = new WebSocket("ws://" + window.location.host); // NOTE investigate this "location.host" if it isn't causing any troubles
 
-        vm.ws.onopen = (vm.wsOnOpen.bind(vm, $scope));
-        vm.ws.onmessage = (vm.wsOnMessage.bind(vm, $scope));
+        vm.ws.onopen = (vm.wsOnOpen.bind(vm));
+        vm.ws.onmessage = (vm.wsOnMessage.bind(vm));
+        vm.ws.onclose = (vm.wsOnClose.bind(vm));
+
+        window.onbeforeunload = function () {
+            vm.ws.close();
+        };
     }
 
-    ChatCtrl.prototype.wsOnOpen = function ($scope, wsEvent) {
+    ChatCtrl.prototype.wsOnOpen = function (wsEvent) {
 
         var vm = this;
 
-        $scope.connectionEstablished = 1;
-        $scope.send = function () {
-            if ($scope.chat.message.length) {
+        vm.scope.connectionEstablished = 1;
+        vm.scope.send = (vm.sendMessage.bind(vm));
 
-                var pkg = {}; // message package
-                pkg.content = $scope.chat.message;
-                pkg.user = $scope.user;
 
-                vm.ws.send(JSON.stringify(pkg));
-
-                $scope.chat.message = '';
-            }
-        };
+        // get last messages
+        vm.restangular.all('messages').getList().then(function(result) {
+            vm.scope.messages = result;
+            //vm.scope.messages = Restangular.all('accounts').getList().$object;
+        });
 
         // updates bindings and watchers
-        $scope.$digest();
+        vm.scope.$digest();
 
     };
 
-    ChatCtrl.prototype.wsOnMessage = function ($scope, wsEvent) {
+    ChatCtrl.prototype.wsOnMessage = function (wsEvent) {
 
         var vm = this,
             pkg;
 
         try {
-
             pkg = JSON.parse(wsEvent.data);
-
         } catch (err) {
 
+            //TODO error
+
         } finally {
-            $scope.messages.push({
+            vm.scope.messages.push({
                 author: pkg.user.name,
                 content: pkg.content,
                 timestamp: '',
                 color: pkg.user.color,
-                role: pkg.user.role
+                role: pkg.user.role,
+                language: pkg.user.language
             });
 
             // updates bindings and watchers
-            $scope.$digest();
+            vm.scope.$digest();
         }
+    };
+
+    ChatCtrl.prototype.wsOnClose = function (wsEvent) {
+        var vm = this;
+
+        vm.restangular.one('users', vm.scope.user.name).remove();
+    }
+
+    ChatCtrl.prototype.sendMessage = function () {
+
+        var pkg = {}, // message package
+            vm = this;
+
+        if (!vm.scope.chat.message.length) {
+            return;
+        }
+
+        pkg.content = vm.scope.chat.message;
+        pkg.user = vm.scope.user;
+
+        vm.ws.send(JSON.stringify(pkg));
+
+        vm.scope.chat.message = '';
     };
 
     ChatCtrl.prototype.keyBindings = function (event) {
@@ -83,9 +112,16 @@
         }
     };
 
+
+
     // assigns whole stuff to angular methods
     // 'luegg.directives' - scroll on adding new line to pane
-    angular.module('ncApp.chat', ['ngRoute', 'luegg.directives'])
+    angular.module('ncApp.chat', [
+        'ngRoute',
+        'luegg.directives',
+        'restangular'
+    ])
         .config(['$routeProvider', ChatConfig])
-        .controller('ChatCtrl', ['$rootScope', '$scope', ChatCtrl]);
+        .controller('ChatCtrl', ['$rootScope', '$scope', 'Restangular', ChatCtrl]);
+
 })();

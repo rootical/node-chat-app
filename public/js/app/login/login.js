@@ -8,44 +8,28 @@
         });
     }
 
-    function LoginCtrl($rootScope, $scope, $location, $http) {
-
+    function LoginCtrl($rootScope, $scope, $location, $http, Restangular) {
         var vm = this;
 
         $scope.login = function () {
-            if($scope.login.username.length) {
-                $http.get('/api/users/' + $scope.login.username).then(function(data) {
-                    $rootScope.user = data.data;
+            if ($scope.login.username.length) {
+
+                Restangular.one('users', $scope.login.username).put().then(function (data) {
+                    $rootScope.user = data.plain();
                     $location.path('/chat');
+
+                }, function (data) {
+                    if (data.data.hasOwnProperty('error')) {
+                        $scope.error = data.data.error;
+                    }
                 });
             }
         };
-
     }
 
-    /*
-    function LoginSessionFactory($http) {
-        var Session = {
-            data: {},
-            saveSession: function () {
-                //TODO save session data to db
-            },
-            updateSession: function () {
-                //TODO load session from api (db)
-
-
-                //Session.data = $http.get('session.json').then(function(r) { return r.data;});
-            }
-        };
-
-        Session.updateSession();
-
-        return Session;
-    }*/
-
     // assigns whole stuff to angular methods
-    angular.module('ncApp.login', ['ngRoute'])
+    angular.module('ncApp.login', ['ngRoute', 'restangular'])
         .config(['$routeProvider', LoginConfig])
-        .controller('LoginCtrl', ['$rootScope', '$scope', '$location', '$http', LoginCtrl]);
+        .controller('LoginCtrl', ['$rootScope', '$scope', '$location', '$http', 'Restangular', LoginCtrl]);
 
 })();

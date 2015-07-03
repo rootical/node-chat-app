@@ -11,12 +11,13 @@ function Anonym(name) {
     this.name = name;
 
      // private map of available fields
-    _(this).userDataMap = ['name', 'role'];
+    _(this).userDataMap = ['name', 'role', 'language'];
 }
 
 Anonym.prototype = {
     name: '',
     role: 'ANONYMOUS',
+    language: '',
 
     // getters
     getUserData: function () {
@@ -43,7 +44,7 @@ function User(name, role) {
     Anonym.call(this, name);
 
     // private map of available fields
-    _(this).userDataMap = ['name', 'email', 'role', 'color'];
+    _(this).userDataMap = ['name', 'email', 'role', 'color', 'language'];
 
     this.role = role || 'SIMPLE';
 
