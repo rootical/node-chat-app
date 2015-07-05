@@ -27,7 +27,7 @@
 }
 #Chat .chatMessages ul > li .chatMsgTime {
   color: #e8e8e8;
-  font-size: 6px;
+  font-size: 10px;
 }
 #Chat .chatMessages ul > li.admin .chatMsgAuthor {
   font-weight: bold;
@@ -35,6 +35,11 @@
 #Chat .chatMessages ul > li.anonymous .chatMsgAuthor {
   color: #a8a8a8;
   font-style: italic;
+}
+#Chat .chatMessages ul > li.deleted {
+  color: #a8a8a8;
+  font-style: italic;
+  font-size: 12px;
 }
 #Chat .chatControls {
   margin: 20px 0px;

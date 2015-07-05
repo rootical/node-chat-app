@@ -1,11 +1,12 @@
 <div class="chatPane" id="Chat">
     <div class="chatMessages" scroll-glue>
         <ul>
-            <li ng-repeat="message in messages" class="{{message.role.toLowerCase()}}">
+            <li ng-repeat="message in messages" class="" ng-class="{false: message.role.toLowerCase(), true: 'deleted'}[message.broadcast === 'maintanance']">
                 <span class="chatMsgAuthor" ng-style="{'color': message.color}">{{message.author}}</span>
-                <span ng-if="message.language && message.language != 'en'" class="chatMsgAuthorLanguage flag-{{message.language}}"></span>
+                <span ng-if="message.language && message.language !== 'en'" class="chatMsgAuthorLanguage flag-{{message.language}}"></span>
                 <span class="chatMsgContent">{{message.content}}</span>
-                <span class="chatMsgTime">{{message.timestamp}}</span>
+                <span ng-if="message.broadcast == 'regular' && user.role == 'ADMIN' && message.author !== user.name"><button ng-click="deleteMessage(message._id)">x</button></span>
+                <span class="chatMsgTime">{{message.created_at | date:'HH:mm'}}</span>
             </li>
         </ul>
     </div>

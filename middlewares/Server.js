@@ -13,9 +13,9 @@ Server = function (options) {
         return Server.instance;
     }
 
-    this.options = options;
-    console.info('Server.js: Creating WS server');
+    //console.info('Server.js passed options to constructor:', options);
 
+    this.options = options;
     Server.instance = this;
 
     return this;
@@ -24,6 +24,8 @@ Server = function (options) {
 
 Server.prototype.run = function () {
     'use strict';
+    console.info('Server.js: Creating WS server');
+
     // create server
     this.wss = new WSServer(this.options);
 
@@ -41,30 +43,40 @@ Server.prototype.connection = function (ws) {
 Server.prototype.incoming = function (msg) {
     'use strict';
     var message,
-        msgObj = JSON.parse(msg);
+        msgObj = JSON.parse(msg),
+        self = this;
 
     console.info('Server.js: Incoming message "%s"', msg);
 
     // save into DB
     Message.create({
         author: msgObj.user.name,
-        text: msgObj.content,
+        content: msgObj.content,
         language: msgObj.user.language
-    }, function (err) {
+    }, function (err, data) {
         if (err) {
             throw err;
         }
 
+        data = data.toObject();
+        data.color = msgObj.user.color;
+        data.role = msgObj.user.role;
+
+        // broadcast to all users
+        self.broadcast.call(self, data);
+
         console.info('Server.js: Message has been saved into DB');
     });
-
-    // broadcast to all users
-    this.broadcast.call(this, msg);
 };
 
-Server.prototype.broadcast = function (data) {
+Server.prototype.broadcast = function (data, type) {
     'use strict';
     console.info('Server.js: Broadcasting message');
+
+    data.broadcast = type || 'regular';
+
+    data = JSON.stringify(data);
+
 
     this.wss.clients.forEach(function each(client) {
         client.send(data);

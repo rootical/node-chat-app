@@ -1,8 +1,9 @@
-/*jslint node: true */
+/*jslint node: true nomen: true */
 
 var express = require('express'),
     router = express.Router(),
-    Message = require('../../models/message.js');
+    Message = require('../../models/message.js'),
+    Server = require('../../middlewares/Server').Server;
 
 // getters
 
@@ -20,8 +21,17 @@ router.get('/api/messages', function (req, res) {
 router.delete('/api/messages/:id', function (req, res) {
     'use strict';
 
+    var wss = new Server(),
+        message = {},
+        result;
+
+    message.content = 'Message has been deleted';
+    message._id = req.params.id;
+
+    wss.broadcast(message, 'maintanance');
+
     res.setHeader('Content-Type', 'application/json');
-    res.send('{data:"TODO"}');
+    res.send(result);
 });
 
 module.exports = router;

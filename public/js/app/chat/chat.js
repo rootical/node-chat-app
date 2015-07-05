@@ -1,3 +1,4 @@
+/*jslint nomen: true */
 (function () {
     'use strict';
 
@@ -26,6 +27,8 @@
         vm.ws.onmessage = (vm.wsOnMessage.bind(vm));
         vm.ws.onclose = (vm.wsOnClose.bind(vm));
 
+        vm.scope.deleteMessage = (vm.deleteMessage.bind(vm));
+
         window.onbeforeunload = function () {
             vm.ws.close();
         };
@@ -40,8 +43,8 @@
 
 
         // get last messages
-        vm.restangular.all('messages').getList().then(function(result) {
-            vm.scope.messages = result;
+        vm.restangular.all('messages').getList().then(function (result) {
+            vm.scope.messages = result.plain();
             //vm.scope.messages = Restangular.all('accounts').getList().$object;
         });
 
@@ -62,14 +65,27 @@
             //TODO error
 
         } finally {
-            vm.scope.messages.push({
-                author: pkg.user.name,
-                content: pkg.content,
-                timestamp: '',
-                color: pkg.user.color,
-                role: pkg.user.role,
-                language: pkg.user.language
-            });
+
+            switch (pkg.broadcast) {
+
+            case 'maintanance':
+
+                vm.scope.messages = vm.scope.messages.map(function (item) {
+                    return item._id === pkg._id ? pkg : item;
+                });
+
+                break;
+
+            default:
+
+                delete pkg.updated_at;
+                delete pkg.hidden;
+
+                vm.scope.messages.push(pkg);
+
+
+            }
+
 
             // updates bindings and watchers
             vm.scope.$digest();
@@ -78,9 +94,8 @@
 
     ChatCtrl.prototype.wsOnClose = function (wsEvent) {
         var vm = this;
-
         vm.restangular.one('users', vm.scope.user.name).remove();
-    }
+    };
 
     ChatCtrl.prototype.sendMessage = function () {
 
@@ -99,16 +114,29 @@
         vm.scope.chat.message = '';
     };
 
+    ChatCtrl.prototype.deleteMessage = function (id) {
+        var vm = this;
+
+        if (vm.scope.user.role !== 'ADMIN') {
+            return;
+        }
+
+        // remove
+        vm.restangular.one('messages', id).remove();
+
+    };
+
     ChatCtrl.prototype.keyBindings = function (event) {
 
-        switch(event.keyCode) {
-            // return key
-            case 13:
-                this.send();
-                break;
+        switch (event.keyCode) {
 
-            default:
-                //TODO: "Someone is writing right now" functionality
+        // return key
+        case 13:
+            this.send();
+            break;
+
+        default:
+            //TODO: "Someone is writing right now" functionality
         }
     };
 

@@ -5,8 +5,7 @@ var express = require('express'),
 
     availableUsers = require('../../mocks/users.js').available,
 
-    Anonym = require('../../middlewares/User.js').Anonym,
-    APIError = require('../../middlewares/APIError.js').APIError;
+    Anonym = require('../../middlewares/User.js').Anonym;
 
 /*
     Get user by id.
@@ -46,7 +45,7 @@ router['delete']('/api/users/:username', function (req, res) { // jsLint reports
 
     delete global.USERS.def[req.params.username];
 
-    console.info('API::users: unregistering user', req.params.username);
+    console.info('API::users: unregistering user:', req.params.username);
 
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({}, null, 2));
