@@ -10,12 +10,20 @@ function AppConfig($routeProvider, RestangularProvider) {
 
 function AppRun($rootScope, $location) {
 
+
+    $rootScope.unsupported = false;
+
     // check if user is known
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         if (!$rootScope.user) {
             $location.path('/login');
         }
     });
+
+    if (!window.hasOwnProperty('WebSocket')) {
+        $rootScope.unsupported = true;
+        $rootScope.error = 'Your browser does not support technologies used in this app. Please upgrade your browser to run this application';
+    }
 }
 
 function AppAutoFocusDirective($timeout) {

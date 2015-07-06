@@ -1,10 +1,9 @@
 <div id="LoginPane">
     <form name="loginForm" novalidate role="form">
         <div class="form-group">
-            <input class="form-control" type="text" name="username" placeholder="Write your nick" ng-model="login.username" />
+            <input class="form-control" type="text" name="username" placeholder="Write your nick" ng-model="login.username" ng-if="!unsupported" />
             <div ng-if="error">{{error}}</div>
-            <button class="btn btn-default" ng-click="login()">Go!</button>
-
+            <button class="btn btn-default" ng-click="login()" ng-if="!unsupported">Go!</button>
         </div>
     </form>
 </div>
