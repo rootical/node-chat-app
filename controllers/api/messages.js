@@ -17,7 +17,6 @@ router.get('/api/messages', function (req, res) {
 
 });
 
-//TODO delete messages
 router.delete('/api/messages/:id', function (req, res) {
     'use strict';
 
@@ -28,10 +27,13 @@ router.delete('/api/messages/:id', function (req, res) {
     message.content = 'Message has been deleted';
     message._id = req.params.id;
 
-    wss.broadcast(message, 'maintanance');
+    Message.find({_id: message._id}).remove(function () {
+        // broadcast information about action
+        wss.broadcast(message, 'maintanance');
 
-    res.setHeader('Content-Type', 'application/json');
-    res.send(result);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(message);
+    });
 });
 
 module.exports = router;
