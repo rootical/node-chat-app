@@ -12,6 +12,12 @@
                 <span class="chatMsgTime">{{message.created_at | date:'HH:mm'}}</span>
             </li>
         </ul>
+
+        <div ng-if="wip.length > 0" class="chatWritingInProgressBar">
+            <span class="chatWritingInProgressUsers">{{wip.join(', ')}}</span>
+            <span class="chatWritingInProgressAction" ng-if="wip.length > 1">are writing right now ...</span>
+            <span class="chatWritingInProgressAction" ng-if="wip.length === 1">is writing right now ...</span>
+        </div>
     </div>
     <div class="chatControls">
         <div class="chatInput">

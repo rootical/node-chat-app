@@ -25,11 +25,12 @@ router.delete('/api/messages/:id', function (req, res) {
         result;
 
     message.content = 'Message has been deleted';
+    message.type = 'del';
     message._id = req.params.id;
 
     Message.find({_id: message._id}).remove(function () {
         // broadcast information about action
-        wss.broadcast(message, 'maintanance');
+        wss.broadcast(message, 'maintenance');
 
         res.setHeader('Content-Type', 'application/json');
         res.send(message);

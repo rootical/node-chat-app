@@ -16,6 +16,8 @@
         vm.scope = $scope;
         vm.scope.messages = [];
         vm.scope.keyBindings = vm.keyBindings;
+        vm.scope.writing = false;
+        vm.scope.wip = []; //writing in progress user set
 
         vm.scope.user = $rootScope.user;
 
@@ -66,13 +68,36 @@
 
         } finally {
 
+            var index;
+
             switch (pkg.broadcast) {
 
-            case 'maintanance':
+            case 'maintenance':
 
-                vm.scope.messages = vm.scope.messages.map(function (item) {
-                    return item._id === pkg._id ? pkg : item;
-                });
+                switch(pkg.type) {
+                    case 'wip': // writing in progres start
+
+                        if (pkg.user.name !== vm.scope.user.name) {
+                            vm.scope.wip.push(pkg.user.name);
+                        }
+                        break;
+                    case 'wipe': // writing in progres end
+
+                        index = vm.scope.wip.indexOf(pkg.user.name);
+
+                        if (index > -1) {
+                            vm.scope.wip.splice(index, 1);
+                        }
+
+                        break;
+                    case 'del': // delete message
+
+                        vm.scope.messages = vm.scope.messages.map(function (item) {
+                            return item._id === pkg._id ? pkg : item;
+                        });
+
+                        break;
+                }
 
                 break;
 
@@ -82,8 +107,6 @@
                 delete pkg.hidden;
 
                 vm.scope.messages.push(pkg);
-
-
             }
 
 
@@ -112,6 +135,11 @@
         vm.ws.send(JSON.stringify(pkg));
 
         vm.scope.chat.message = '';
+
+        // clear writing in progress
+        clearInterval(vm.scope.timeout);
+        vm.endOfWriting();
+
     };
 
     ChatCtrl.prototype.deleteMessage = function (id) {
@@ -126,6 +154,44 @@
 
     };
 
+    //TODO: "Someone is writing right now" functionality
+    ChatCtrl.prototype.writingInProgress = function (event) {
+        var vm = this,
+            message = {};
+
+        // start writing
+        if (!vm.scope.writing) {
+            vm.scope.writing = true;
+
+            message.broadcast = 'maintenance';
+            message.type = 'wip';
+            message.user = vm.scope.user;
+
+            vm.ws.send(JSON.stringify(message));
+        }
+
+        // writing in progress
+        clearInterval(vm.scope.timeout);
+
+        // end of writing
+        vm.scope.timeout = setTimeout(function () {
+            vm.endOfWriting();
+        }, 5000);
+    };
+
+    ChatCtrl.prototype.endOfWriting = function (event) {
+        var vm = this,
+            message = {};
+
+        message.broadcast = 'maintenance';
+        message.type = 'wipe';
+        message.user = vm.scope.user;
+
+        vm.ws.send(JSON.stringify(message));
+
+        vm.scope.writing = false;
+    };
+
     ChatCtrl.prototype.keyBindings = function (event) {
 
         switch (event.keyCode) {
@@ -136,11 +202,9 @@
             break;
 
         default:
-            //TODO: "Someone is writing right now" functionality
+            this.vm.writingInProgress(event);
         }
     };
-
-
 
     // assigns whole stuff to angular methods
     // 'luegg.directives' - scroll on adding new line to pane

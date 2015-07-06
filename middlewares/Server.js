@@ -48,7 +48,13 @@ Server.prototype.incoming = function (msg) {
 
     console.info('Server.js: Incoming message "%s"', msg);
 
-    // save into DB
+    // if msg is maintenance do not save it just broadcast
+    if (msgObj.broadcast === 'maintenance') {
+        self.broadcast.call(self, msgObj, msgObj.broadcast);
+        return;
+    }
+
+    // if message is has regular broadcast save it into DB
     Message.create({
         author: msgObj.user.name,
         content: msgObj.content,
