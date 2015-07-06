@@ -57,6 +57,27 @@
 
                         z-index: 0;
                     }
+
+                    & .chatMsgContentDelete {
+                        position: absolute;
+                        top: 3px;
+                        right: 4px;
+                        display: inline-block;
+                        float: right;
+                        width: 8px;
+
+                        button {
+                            padding: 0px;
+                            border: 0;
+                            background-color: transparent;
+                            font-size: 18px;
+                            line-height: 12px;
+                        }
+
+                        button:hover {
+                            color: red;
+                        }
+                    }
                 }
 
                 & .chatMsgPointer {
@@ -101,6 +122,20 @@
                     color: @chatAnonymousColor;
                     font-style: italic;
                     font-size: 12px;
+                }
+
+                &.maintenance {
+                    & .chatMsgContent {
+                        font-size: 11px;
+                        color: @chatAnonymousColor;
+                        font-style: italic;
+
+                        margin: 15px 0 0;
+
+                        & .chatMsgContentText {
+                            padding: 0;
+                        }
+                    }
                 }
 
             }
