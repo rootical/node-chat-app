@@ -25,11 +25,60 @@
                 margin: 0px;
                 padding: 0px;
 
-                & .chatMsgTime {
-                    color: @chatBackgroundColor;
-                    font-size: 10px;
+                & .chatMsgContent {
+                    position: relative;
+                    display: inline-block;
+                    min-width: 100px;
+                    margin: 15px 0 0;
+
+                    background-color: inherit;
+
+                    & .chatMsgContentText {
+                        display: inline-block;
+                        padding: 8px;
+                    }
+
+                    & .chatMsgContentBcg {
+                        position: absolute;
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        opacity: 0.1;
+
+                        background-color: @chatAnonymousColor;
+
+                        -webkit-border-radius: 5px;
+                        -moz-border-radius: 5px;
+                        border-radius: 5px;
+
+                        z-index: 0;
+                    }
                 }
 
+                & .chatMsgPointer {
+                    display: block;
+                    width: 0;
+                    height: 0;
+                    margin: 0 0 0 30px;
+                    opacity: 0.1;
+
+                    border-style: solid;
+                    border-width: 0px 0 12px 10px;
+                    border-color: transparent transparent transparent @chatAnonymousColor;
+
+                }
+
+                & .chatMsgAuthor {
+                    line-height: 16px;
+                }
+
+                & .chatMsgTime {
+                    float: right;
+                    color: @chatAnonymousColor;
+                    font-size: 10px;
+                    line-height: 22px;
+
+                }
 
                 &.admin {
                     & .chatMsgAuthor {

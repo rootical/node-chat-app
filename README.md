@@ -1,5 +1,5 @@
 # node-chat-app
-### DB Initialization
+### Mongo DB initialization
 
 `use chat`
 
