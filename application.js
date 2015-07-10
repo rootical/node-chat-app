@@ -44,12 +44,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('./controllers/api/index.js'));
 app.use(require('./controllers/api/users.js'));
 app.use(require('./controllers/api/messages.js'));
+app.use(require('./controllers/api/geocode.js'));
+
 
 // lets run the Angular
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'public/js/app/index.html'));
 });
-
 
 //console.log(Users.simple.name);
 
@@ -57,6 +58,5 @@ app.server = http.createServer(app);
 app.server.listen(3000);
 
 // web services server start
-wss = new Server({server: app.server});
 wss = new Server({server: app.server});
 wss.run();
