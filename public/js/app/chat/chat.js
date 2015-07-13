@@ -58,7 +58,8 @@
     ChatCtrl.prototype.wsOnMessage = function (wsEvent) {
 
         var vm = this,
-            pkg;
+            pkg,
+            index;
 
         try {
             pkg = JSON.parse(wsEvent.data);
@@ -68,35 +69,36 @@
 
         } finally {
 
-            var index;
-
             switch (pkg.broadcast) {
 
             case 'maintenance':
 
-                switch(pkg.type) {
-                    case 'wip': // writing in progres start
+                switch (pkg.type) {
+                case 'wip': // writing in progres start
 
-                        if (pkg.user.name !== vm.scope.user.name) {
-                            vm.scope.wip.push(pkg.user.name);
-                        }
-                        break;
-                    case 'wipe': // writing in progres end
+                    if (pkg.user.name !== vm.scope.user.name) {
+                        vm.scope.wip.push(pkg.user.name);
+                    }
 
-                        index = vm.scope.wip.indexOf(pkg.user.name);
+                    break;
 
-                        if (index > -1) {
-                            vm.scope.wip.splice(index, 1);
-                        }
+                case 'wipe': // writing in progres end
 
-                        break;
-                    case 'del': // delete message
+                    index = vm.scope.wip.indexOf(pkg.user.name);
 
-                        vm.scope.messages = vm.scope.messages.map(function (item) {
-                            return item._id === pkg._id ? pkg : item;
-                        });
+                    if (index > -1) {
+                        vm.scope.wip.splice(index, 1);
+                    }
 
-                        break;
+                    break;
+
+                case 'del': // delete message
+
+                    vm.scope.messages = vm.scope.messages.map(function (item) {
+                        return item._id === pkg._id ? pkg : item;
+                    });
+
+                    break;
                 }
 
                 break;

@@ -5,19 +5,24 @@
   "dependencies": {
     "express": "*",
     "jade": "*",
-    "mongojs": "*",
     "less-middleware": "1.0.4",
+    "mongojs": "*",
+    "mongoose": "4.0.x",
     "morgan": "*",
-    "ws": "0.7.2",
-    "randomcolor": "0.3.0",
     "private-parts": "0.4.x",
-    "mongoose": "4.0.x"
+    "randomcolor": "0.3.0",
+    "request-ip": "^1.1.3",
+    "ws": "0.7.2"
   },
   "devDependencies": {
     "gulp": "3.9.x",
     "gulp-less": "3.0.x",
     "gulp-minify-css": "1.2.x",
+    "gulp-rename": "1.2.x",
     "gulp-uglify": "1.2.x",
-    "gulp-rename": "1.2.x"
+    "karma": "^0.12.37",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "phantomjs": "^1.9.17"
   }
 }

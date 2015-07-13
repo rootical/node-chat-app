@@ -58,7 +58,7 @@ Server.prototype.incoming = function (msg) {
     Message.create({
         author: msgObj.user.name,
         content: msgObj.content,
-        language: msgObj.user.language
+        language: msgObj.user.location && msgObj.user.location.country ? msgObj.user.location.country.shortName : ''
     }, function (err, data) {
         if (err) {
             throw err;
@@ -82,7 +82,6 @@ Server.prototype.broadcast = function (data, type) {
     data.broadcast = type || 'regular';
 
     data = JSON.stringify(data);
-
 
     this.wss.clients.forEach(function each(client) {
         client.send(data);

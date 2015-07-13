@@ -8,7 +8,7 @@
                     <span class="chatMsgContentDelete" ng-if="message.broadcast == 'regular' && user.role == 'ADMIN' && message.author !== user.name"><button ng-click="deleteMessage(message._id)">&times;</button></span>
                 </span>
                 <span class="chatMsgPointer" ng-if="message.broadcast !== 'maintenance'" ng-style="{'border-left-color': message.color}"></span>
-                <span class="chatMsgAuthor" ng-class="{true: 'flag-' + message.language}[message.language && message.language !== 'en']" ng-style="{'color': message.color}">{{message.author}}</span>
+                <span class="chatMsgAuthor" ng-class="{true: 'flag-' + message.language, false: 'flag-none'}[message.language !== 'undefined' && message.language.length > 0]" ng-style="{'color': message.color}">{{message.author}}</span>
                 <span class="chatMsgTime">{{message.created_at | date:'HH:mm'}}</span>
             </li>
         </ul>

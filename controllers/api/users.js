@@ -29,10 +29,6 @@ router.put('/api/users/:username', function (req, res) {
         currentUser = new Anonym(req.params.username);
     }
 
-    // at the end add browser language
-    language = req.headers["accept-language"].split(';')[0].split(',')[0].split('-');
-    currentUser.language = (language[1] || language[0] || '').toLowerCase();
-
     global.USERS.def[req.params.username] = true;
 
     res.setHeader('Content-Type', 'application/json');
