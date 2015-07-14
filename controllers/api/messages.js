@@ -1,14 +1,19 @@
 /*jslint node: true nomen: true */
+'use strict';
 
 var express = require('express'),
     router = express.Router(),
+
+    routes = require('../../config/routes.js'),
     Message = require('../../models/message.js'),
     Server = require('../../middlewares/Server').Server;
 
-// getters
-
-router.get('/api/messages', function (req, res) {
-    'use strict';
+/**
+ *
+ * Gets last messages to fill chat window with history
+ *
+ */
+router.get(routes.messages.get.messages.path, function (req, res) {
 
     Message.getLastMessages(function (result) {
         res.setHeader('Content-Type', 'application/json');
@@ -17,8 +22,12 @@ router.get('/api/messages', function (req, res) {
 
 });
 
-router.delete('/api/messages/:id', function (req, res) {
-    'use strict';
+/**
+ *
+ * Deletes message by its id
+ *
+ */
+router['delete'](routes.messages['delete'].messages.path, function (req, res) {
 
     var wss = new Server(),
         message = {},

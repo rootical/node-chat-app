@@ -1,3 +1,5 @@
+/*jslint node: true */
+
 var express = require('express'),
     router = express.Router();
 
@@ -26,4 +28,4 @@ router.get('/', function(req, res) {
 
 */
 
-module.exports = router
+module.exports = router;

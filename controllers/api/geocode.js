@@ -1,18 +1,22 @@
 /*jslint node: true */
+'use strict';
 
 var express = require('express'),
     router = express.Router(),
     requestIp = require('request-ip'),
 
+    routes = require('../../config/routes.js'),
     Geocode = require('../../middlewares/Geocode.js').Geocode;
 
-
-router.get('/api/geocode/coordinates/:long/:lat', function (req, res) {
-    'use strict';
+/**
+ *
+ * Get user location by longitude and latitude.
+ * City and country are provided by Google Maps API.
+ *
+ */
+router.get(routes.geocode.get.coordinates.path, function (req, res) {
 
     var geo = new Geocode();
-
-    console.log(req.params);
 
     geo.getByCoordinates(req.params.long, req.params.lat, function (err, data) {
 
@@ -29,8 +33,13 @@ router.get('/api/geocode/coordinates/:long/:lat', function (req, res) {
 
 });
 
-router.get('/api/geocode/ip', function (req, res) {
-    'use strict';
+/**
+ *
+ * Get user location by IP address.
+ * City and coutnry are provided by freegeoip.net API.
+ *
+ */
+router.get(routes.geocode.get.ip.path, function (req, res) {
 
     var geo = new Geocode(),
         ip = requestIp.getClientIp(req);

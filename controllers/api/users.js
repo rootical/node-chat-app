@@ -1,17 +1,20 @@
 /*jslint node: true */
+'use strict';
 
 var express = require('express'),
     router = express.Router(),
 
+    routes = require('../../config/routes.js'),
     availableUsers = require('../../mocks/users.js').available,
 
     Anonym = require('../../middlewares/User.js').Anonym;
 
-/*
-    Get user by id.
-*/
-router.put('/api/users/:username', function (req, res) {
-    'use strict';
+/**
+ *
+ * Get user by given id.
+ *
+ */
+router.put(routes.users.put.users.path, function (req, res) {
 
     var currentUser,
         language;
@@ -36,8 +39,13 @@ router.put('/api/users/:username', function (req, res) {
 
 });
 
-router['delete']('/api/users/:username', function (req, res) { // jsLint reports that delete as a reserved word
-    'use strict';
+
+/**
+ *
+ * Delete user by given id.
+ *
+ */
+router['delete'](routes.users['delete'].users.path, function (req, res) { // jsLint reports that delete as a reserved word
 
     delete global.USERS.def[req.params.username];
 
