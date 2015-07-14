@@ -9,18 +9,19 @@ As a [ZIP archive](https://github.com/MysticEyeBlink/node-chat-app/archive/maste
     git clone https://github.com/MysticEyeBlink/node-chat-app.git
 ```
 ### Get libraries
-#### npm (node.js libraries)
+- npm (node.js libraries)
 ```
     npm install
     npm install -g nodemon
 ```
-#### bower (3rd party front-end libraries)
+- bower (3rd party front-end libraries)
 ```
     npm install -g bower
     bower install
 ```
+
 ### Mongo DB initialization and running
-#### mongo ver. 3.0.x
+- mongo ver. 3.0.x
 Change db, add user to Mongo and go on:
 
 ```
@@ -28,12 +29,12 @@ Change db, add user to Mongo and go on:
     db.createUser({ user: "chat", pwd: "pass", roles: [ "readWrite", "dbAdmin" ]})
 ```
 ## Running
-### Gulp
+- Gulp
 At first you should start Gulp task runner:
 ```
     gulp
 ```
-### nodemon
+- nodemon
 ... and then in different window run the project
 ```  
     nodemon appliaction.js
