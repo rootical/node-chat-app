@@ -22,6 +22,7 @@ As a [ZIP archive](https://github.com/MysticEyeBlink/node-chat-app/archive/maste
 
 ### Mongo DB initialization and running
 - mongo ver. 3.0.x
+
 Change db, add user to Mongo and go on:
 
 ```
@@ -30,6 +31,7 @@ Change db, add user to Mongo and go on:
 ```
 ## Running
 - Gulp
+
 At first you should start Gulp task runner:
 ```
     gulp
