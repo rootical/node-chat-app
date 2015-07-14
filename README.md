@@ -37,6 +37,7 @@ At first you should start Gulp task runner:
     gulp
 ```
 - nodemon
+
 ... and then in different window run the project
 ```  
     nodemon appliaction.js
