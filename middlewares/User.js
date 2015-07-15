@@ -2,55 +2,74 @@
 
 var crypto = require('crypto'),
     randomColor = require('randomcolor'),
-    _ = require('private-parts').createKey();
+    _private = require('private-parts').createKey();
 
-
+/**
+ *
+ * Anonym class constructor - base class for each user
+ *
+ * @param {String} name - user name
+ */
 function Anonym(name) {
     'use strict';
 
     this.name = name;
 
      // private map of available fields
-    _(this).userDataMap = ['name', 'role', 'language'];
+    _private(this).userDataMap = ['name', 'role', 'language'];
 }
 
-Anonym.prototype = {
-    name: '',
-    role: 'ANONYMOUS',
-    language: '',
+Anonym.prototype.name = '';
+Anonym.prototype.role = 'ANONYMOUS';
+Anonym.prototype.language = '';
 
-    // getters
-    getUserData: function () {
-        'use strict';
+/**
+ *
+ *  Get package of all fields from this object according to map created in constructor.
+ *
+ */
+Anonym.prototype.getUserData = function () {
+    'use strict';
 
-        var result = {},
-            key,
-            element;
+    var result = {},
+        key,
+        element;
 
-        for (key in _(this).userDataMap) {
-            if (_(this).userDataMap.hasOwnProperty(key)) {
-                element = _(this).userDataMap[key];
-                result[element] = this[element];
-            }
+    for (key in _private(this).userDataMap) {
+        if (_private(this).userDataMap.hasOwnProperty(key)) {
+            element = _private(this).userDataMap[key];
+            result[element] = this[element];
         }
-
-        return result;
     }
+
+    return result;
 };
 
+/**
+ * User class constructor - advanced type of basic user
+ *
+ * @param {String} name - new user name
+ * @param {String} role - privilages set name
+ */
 function User(name, role) {
     'use strict';
 
     Anonym.call(this, name);
 
     // private map of available fields
-    _(this).userDataMap = ['name', 'email', 'role', 'color', 'language'];
+    _private(this).userDataMap = ['name', 'email', 'role', 'color', 'language'];
 
     this.role = role || 'SIMPLE';
 
     this.setColor();
 }
 
+/**
+ *
+ * User class prototype - instead of using node util.inherits I've used basic pattern to
+ * show clean pseudoclassical inheritance
+ *
+ */
 User.prototype = Object.create(Anonym.prototype, {
     password: {
         value: null,
@@ -71,8 +90,11 @@ User.prototype = Object.create(Anonym.prototype, {
         writable: true
     },
 
-    // setters
-
+    /**
+     *
+     *  Creates MD5 hash to representing password
+     *
+     */
     setPassword: {
         value: function (decryptedPassword) {
             'use strict';
@@ -83,6 +105,11 @@ User.prototype = Object.create(Anonym.prototype, {
         }
     },
 
+    /**
+     *
+     *  Generates random, dark color for each user
+     *
+     */
     setColor: {
         value: function () {
             'use strict';
@@ -92,8 +119,6 @@ User.prototype = Object.create(Anonym.prototype, {
             });
         }
     }
-    // getters
-
 });
 
 module.exports.Anonym = Anonym;
