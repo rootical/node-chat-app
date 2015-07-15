@@ -9,7 +9,7 @@
         });
     }
 
-    function ChatCtrl($rootScope, $scope, Restangular) {
+    function ChatCtrl($scope, $window, User, Restangular) {
 
         var vm = this;
 
@@ -19,11 +19,12 @@
         vm.scope.writing = false;
         vm.scope.wip = []; //writing in progress user set
 
-        vm.scope.user = $rootScope.user;
+        // current user data
+        vm.scope.user = User.get();
 
         vm.restangular = Restangular;
 
-        vm.ws = new WebSocket("ws://" + window.location.host); // NOTE investigate this "location.host" if it isn't causing any troubles
+        vm.ws = new WebSocket("ws://" + $window.location.host);
 
         vm.ws.onopen = (vm.wsOnOpen.bind(vm));
         vm.ws.onmessage = (vm.wsOnMessage.bind(vm));
@@ -31,7 +32,7 @@
 
         vm.scope.deleteMessage = (vm.deleteMessage.bind(vm));
 
-        window.onbeforeunload = function () {
+        $window.onbeforeunload = function () {
             vm.ws.close();
         };
     }
@@ -216,6 +217,6 @@
         'restangular'
     ])
         .config(['$routeProvider', ChatConfig])
-        .controller('ChatCtrl', ['$rootScope', '$scope', 'Restangular', ChatCtrl]);
+        .controller('ChatCtrl', ['$scope', '$window', 'User', 'Restangular', ChatCtrl]);
 
 })();

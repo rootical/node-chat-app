@@ -5,28 +5,35 @@ function AppConfig($routeProvider, RestangularProvider) {
     $routeProvider.otherwise({redirectTo: '/login'});
 
     RestangularProvider.setBaseUrl('/api/');
-
 }
 
-function AppRun($rootScope, $location) {
+function AppRun($rootScope, $location, User) {
 
-
-    $rootScope.unsupported = false;
+    var user = User.get();
 
     // check if user is known
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
-        if (!$rootScope.user) {
+        if (!Object.keys(User.get()).length) {
             $location.path('/login');
         }
     });
-
-    if (!window.hasOwnProperty('WebSocket')) {
-        $rootScope.unsupported = true;
-        $rootScope.error = 'Your browser does not support technologies used in this app. Please upgrade your browser to run this application';
-    }
 }
 
-function AppAutoFocusDirective($timeout) {
+function AppCheckSupport($window) {
+
+    var support = {};
+    support.unsupported = false;
+
+    if (!$window.hasOwnProperty('WebSocket')) {
+        support.unsupported = true;
+        support.error = 'Your browser does not support technologies used in this app. Please upgrade your browser to run this application';
+    }
+
+    return support;
+
+}
+
+function AppAutoFocusDirective() {
     return {
         restrict: 'AC',
         link: function (scope, element) {
@@ -42,5 +49,6 @@ angular.module('ncApp', [
         'restangular'
 ])
     .config(['$routeProvider', 'RestangularProvider', AppConfig])
-    .run(AppRun)
-    .directive('autoFocus', ['$timeout', AppAutoFocusDirective]);
+    .run(['$rootScope', '$location', 'User', AppRun])
+    .factory('isSupported', ['$window', AppCheckSupport])
+    .directive('autoFocus', [AppAutoFocusDirective]);

@@ -8,26 +8,37 @@
         });
     }
 
-    function LoginCtrl($rootScope, $scope, $location, $http, Restangular, Geolocation) {
-        var vm = this;
+    function LoginCtrl($scope, $location, $http, User, Restangular, Geolocation, isSupported) {
+        var vm = this,
+            user;
 
 
         if (navigator.geoloation !== 'undefined') {
+            user = User.get();
+
             navigator.geolocation.getCurrentPosition(function (position) {
-                $rootScope.position = {};
-                $rootScope.position.longitude = position.coords.longitude;
-                $rootScope.position.latitude = position.coords.latitude;
+                user.position = {};
+                user.position.longitude = position.coords.longitude;
+                user.position.latitude = position.coords.latitude;
+
+                User.set(user);
             });
         }
+
+
+        // check if there are soultions that allows to run the application
+        angular.extend($scope, isSupported);
 
         $scope.login = function () {
             if ($scope.login.username.length) {
 
                 Restangular.one('users', $scope.login.username)
                     .put()
-                    .then(function (user) {
+                    .then(function (userData) {
 
-                        $rootScope.user = user.plain();
+                        user = User.get();
+                        angular.extend(user, userData.plain()); //FIXME angular 1.4 has .merge function for deep copy, replace it
+                        User.set(user);
 
                         Geolocation();
 
@@ -42,46 +53,74 @@
         };
     }
 
-    function Geolocation($rootScope, Restangular, GeolocationIp) {
+    function Geolocation(User, Restangular, GeolocationIp) {
         var geo = function () {
 
             var long,
                 lat,
+                user = User.get(),
                 fallback = function (data) {
                     GeolocationIp.get();
                 };
 
-            if (!$rootScope.position) {
+            if (!user.position) {
                 fallback();
                 return;
             }
 
-            Restangular.one('geocode/coordinates/' + $rootScope.position.longitude + '/' + $rootScope.position.latitude).get().then(function (location) {
-                $rootScope.user.location = location.plain();
+            Restangular.one('geocode/coordinates/' + user.position.longitude + '/' + user.position.latitude).get().then(function (location) {
+                user.location = location.plain();
+                User.set(user);
             }, fallback);
         };
 
         return (geo);
     }
 
+    function GeolocationIp(User, Restangular) {
+        var user = User.get();
 
-    function GeolocationIp($rootScope, Restangular) {
         return {
             get: function () {
                 Restangular.one('geocode/ip').get().then(function (location) {
-                    $rootScope.user.location = location.plain();
-
+                    user.location = location.plain();
+                    User.set(user);
                 }, function (data) {
-                    $rootScope.user.location = {};
+                    user.location = {};
+                    User.set(user);
                 });
             }
         };
     }
 
+    /**
+     *
+     * Simple factory for holding current user data
+     *
+     */
+    function User() {
+
+        var user = {};
+
+        function set (data) {
+            user = data;
+        }
+
+        function get () {
+            return user;
+        }
+
+        return {
+            set: set,
+            get: get
+        }
+    }
+
     // assigns whole stuff to angular methods
     angular.module('ncApp.login', ['ngRoute', 'restangular'])
         .config(['$routeProvider', LoginConfig])
-        .factory('GeolocationIp', ['$rootScope', 'Restangular', GeolocationIp])
-        .factory('Geolocation', ['$rootScope', 'Restangular', 'GeolocationIp', Geolocation])
-        .controller('LoginCtrl', ['$rootScope', '$scope', '$location', '$http', 'Restangular', 'Geolocation', LoginCtrl]);
+        .factory('GeolocationIp', ['User', 'Restangular', GeolocationIp])
+        .factory('Geolocation', ['User', 'Restangular', 'GeolocationIp', Geolocation])
+        .factory('User', User)
+        .controller('LoginCtrl', ['$scope', '$location', '$http', 'User', 'Restangular', 'Geolocation', 'isSupported', LoginCtrl]);
 })();
