@@ -5,8 +5,7 @@ var express = require('express'),
     router = express.Router(),
 
     routes = require('../../config/routes.js'),
-    Message = require('../../models/message.js'),
-    Server = require('../../middlewares/Server').Server;
+    Message = require('../../models/message.js');
 
 /**
  *
@@ -29,7 +28,7 @@ router.get(routes.messages.get.messages.path, function (req, res) {
  */
 router['delete'](routes.messages['delete'].messages.path, function (req, res) {
 
-    var wss = new Server(),
+    var wss = req.app.wss,
         message = {},
         result;
 

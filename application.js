@@ -1,4 +1,5 @@
 /*jslint node: true nomen: true*/
+'use strict';
 
 var express = require('express'),
     path = require('path'),
@@ -58,5 +59,5 @@ app.server = http.createServer(app);
 app.server.listen(3000);
 
 // web services server start
-wss = new Server({server: app.server});
-wss.run();
+app.wss = new Server({server: app.server});
+app.wss.run();

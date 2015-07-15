@@ -9,16 +9,7 @@ var WSServer = require('ws').Server,
 Server = function (options) {
     'use strict';
 
-    if (typeof Server.instance === 'object') {
-        return Server.instance;
-    }
-
-    //console.info('Server.js passed options to constructor:', options);
-
     this.options = options;
-    Server.instance = this;
-
-    return this;
 };
 
 
