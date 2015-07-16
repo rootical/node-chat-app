@@ -43,7 +43,7 @@
                 .then(function (userData) {
 
                     user = User.get();
-                    angular.extend(user, userData.plain()); //FIXME angular 1.4 has .merge function for deep copy, replace it
+                    angular.merge(user, userData.plain());
                     User.set(user);
 
                     Geolocation();
