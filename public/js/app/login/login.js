@@ -9,7 +9,7 @@
         });
     }
 
-    function LoginCtrl($location, $http, User, Restangular, Geolocation, isSupported) {
+    function LoginCtrl($location, User, Restangular, Geolocation, isSupported) {
         var vm = this,
             user;
 
@@ -30,31 +30,35 @@
         // check if there are soultions that allows to run the application
         angular.extend(vm, isSupported);
 
-        vm.login = function () {
-            if (vm.login.username.length) {
-
-                Restangular.one('users', vm.login.username)
-                    .put()
-                    .then(function (userData) {
-
-                        user = User.get();
-                        angular.extend(user, userData.plain()); //FIXME angular 1.4 has .merge function for deep copy, replace it
-                        User.set(user);
-
-                        Geolocation();
-
-                        $location.path('/chat');
-
-                    }, function (data) {
-                        if (data.data.hasOwnProperty('error')) {
-                            vm.error = data.data.error;
-                        }
-                    });
-            }
-        };
+        vm.login = (vm.login.bind(vm, $location, Restangular, User, Geolocation));
     }
 
-    function Geolocation(User, Restangular, GeolocationIp) {
+    LoginCtrl.prototype.login = function ($location, Restangular, User, Geolocation) {
+        var vm = this,
+            user = User.get();
+
+        if (vm.login.username.length) {
+            Restangular.one('users', vm.login.username)
+                .put()
+                .then(function (userData) {
+
+                    user = User.get();
+                    angular.extend(user, userData.plain()); //FIXME angular 1.4 has .merge function for deep copy, replace it
+                    User.set(user);
+
+                    Geolocation();
+
+                    $location.path('/chat');
+
+                }, function (data) {
+                    if (data.data.hasOwnProperty('error')) {
+                        vm.error = data.data.error;
+                    }
+                });
+        }
+    };
+
+    function GeolocationFactory(User, Restangular, GeolocationIp) {
         var geo = function () {
 
             var long,
@@ -78,7 +82,7 @@
         return (geo);
     }
 
-    function GeolocationIp(User, Restangular) {
+    function GeolocationIpFactory(User, Restangular) {
         var user = User.get();
 
         return {
@@ -99,7 +103,7 @@
      * Simple factory for holding current user data
      *
      */
-    function User() {
+    function UserFactory() {
 
         var user = {};
 
@@ -120,8 +124,8 @@
     // assigns whole stuff to angular methods
     angular.module('ncApp.login', ['ngRoute', 'restangular'])
         .config(['$routeProvider', LoginConfig])
-        .factory('GeolocationIp', ['User', 'Restangular', GeolocationIp])
-        .factory('Geolocation', ['User', 'Restangular', 'GeolocationIp', Geolocation])
-        .factory('User', User)
-        .controller('LoginCtrl', ['$location', '$http', 'User', 'Restangular', 'Geolocation', 'isSupported', LoginCtrl]);
+        .factory('GeolocationIp', ['User', 'Restangular', GeolocationIpFactory])
+        .factory('Geolocation', ['User', 'Restangular', 'GeolocationIp', GeolocationFactory])
+        .factory('User', UserFactory)
+        .controller('LoginCtrl', ['$location', 'User', 'Restangular', 'Geolocation', 'isSupported', LoginCtrl]);
 })();
