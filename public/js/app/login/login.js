@@ -4,11 +4,12 @@
     function LoginConfig($routeProvider) {
         $routeProvider.when('/login', {
             templateUrl: '/js/app/login/login.html',
-            controller: 'LoginCtrl as vm'
+            controller: 'LoginCtrl',
+            controllerAs: 'vm'
         });
     }
 
-    function LoginCtrl($scope, $location, $http, User, Restangular, Geolocation, isSupported) {
+    function LoginCtrl($location, $http, User, Restangular, Geolocation, isSupported) {
         var vm = this,
             user;
 
@@ -27,12 +28,12 @@
 
 
         // check if there are soultions that allows to run the application
-        angular.extend($scope, isSupported);
+        angular.extend(vm, isSupported);
 
-        $scope.login = function () {
-            if ($scope.login.username.length) {
+        vm.login = function () {
+            if (vm.login.username.length) {
 
-                Restangular.one('users', $scope.login.username)
+                Restangular.one('users', vm.login.username)
                     .put()
                     .then(function (userData) {
 
@@ -46,7 +47,7 @@
 
                     }, function (data) {
                         if (data.data.hasOwnProperty('error')) {
-                            $scope.error = data.data.error;
+                            vm.error = data.data.error;
                         }
                     });
             }
@@ -122,5 +123,5 @@
         .factory('GeolocationIp', ['User', 'Restangular', GeolocationIp])
         .factory('Geolocation', ['User', 'Restangular', 'GeolocationIp', Geolocation])
         .factory('User', User)
-        .controller('LoginCtrl', ['$scope', '$location', '$http', 'User', 'Restangular', 'Geolocation', 'isSupported', LoginCtrl]);
+        .controller('LoginCtrl', ['$location', '$http', 'User', 'Restangular', 'Geolocation', 'isSupported', LoginCtrl]);
 })();

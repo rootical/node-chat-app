@@ -1,11 +1,11 @@
 <div class="chatPane" id="Chat">
     <div class="chatMessages" scroll-glue>
         <ul>
-            <li ng-repeat="message in messages" class="{{message.broadcast}}" ng-class="{false: message.role.toLowerCase(), true: 'deleted'}[message.broadcast === 'maintanance']">
+            <li ng-repeat="message in vm.messages" class="{{message.broadcast}}" ng-class="{false: message.role.toLowerCase(), true: 'deleted'}[message.broadcast === 'maintanance']">
                 <span class="chatMsgContent">
                     <span ng-if="message.broadcast !== 'maintenance'" class="chatMsgContentBcg" ng-style="{'background-color': message.color}"></span>
                     <span class="chatMsgContentText">{{message.content}}</span>
-                    <span class="chatMsgContentDelete" ng-if="message.broadcast == 'regular' && user.role == 'ADMIN' && message.author !== user.name"><button ng-click="deleteMessage(message._id)">&times;</button></span>
+                    <span class="chatMsgContentDelete" ng-if="message.broadcast == 'regular' && vm.user.role == 'ADMIN' && message.author !== vm.user.name"><button ng-click="vm.deleteMessage(message._id)">&times;</button></span>
                 </span>
                 <span class="chatMsgPointer" ng-if="message.broadcast !== 'maintenance'" ng-style="{'border-left-color': message.color}"></span>
                 <span class="chatMsgAuthor" ng-class="{true: 'flag-' + message.language, false: 'flag-none'}[message.language !== 'undefined' && message.language.length > 0]" ng-style="{'color': message.color}">{{message.author}}</span>
@@ -13,18 +13,18 @@
             </li>
         </ul>
 
-        <div ng-if="wip.length > 0" class="chatWritingInProgressBar">
-            <span class="chatWritingInProgressUsers">{{wip.join(', ')}}</span>
-            <span class="chatWritingInProgressAction" ng-if="wip.length > 1">are writing right now ...</span>
-            <span class="chatWritingInProgressAction" ng-if="wip.length === 1">is writing right now ...</span>
+        <div ng-if="vm.wip.length > 0" class="chatWritingInProgressBar">
+            <span class="chatWritingInProgressUsers">{{vm.wip.join(', ')}}</span>
+            <span class="chatWritingInProgressAction" ng-if="vm.wip.length > 1">are writing right now ...</span>
+            <span class="chatWritingInProgressAction" ng-if="vm.wip.length === 1">is writing right now ...</span>
         </div>
     </div>
     <div class="chatControls">
         <div class="chatInput">
-            <input class="form-control" name="message" type="text" value="" ng-model="chat.message" ng-keydown="keyBindings($event)" ng-disabled="!connectionEstablished" auto-focus />
+            <input class="form-control" name="message" type="text" value="" ng-model="vm.chat.message" ng-keydown="vm.keyBindings($event)" ng-disabled="!vm.connectionEstablished" auto-focus />
         </div>
         <div class="chatMsgSend">
-            <button class="btn btn-primary" ng-disabled="!connectionEstablished" ng-click="send()">Send</button>
+            <button class="btn btn-primary" ng-disabled="!vm.connectionEstablished" ng-click="vm.send()">Send</button>
         </div>
     </div>
 </div>
