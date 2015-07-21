@@ -4,8 +4,8 @@
 var express = require('express'),
     router = express.Router(),
 
-    routes = require('../../config/routes.js'),
-    Message = require('../../models/message.js');
+    routes = require('../../../config/routes.js')(require('path').basename(__dirname)),
+    Message = require('../../../models/message.js');
 
 /**
  *

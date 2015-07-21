@@ -4,10 +4,10 @@
 var express = require('express'),
     router = express.Router(),
 
-    routes = require('../../config/routes.js'),
-    availableUsers = require('../../mocks/users.js').available,
+    routes = require('../../../config/routes.js')(require('path').basename(__dirname)),
+    availableUsers = require('../../../mocks/users.js').available,
 
-    Anonym = require('../../middlewares/User.js').Anonym;
+    Anonym = require('../../../middlewares/User.js').Anonym;
 
 /**
  *

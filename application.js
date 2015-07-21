@@ -5,8 +5,10 @@ var express = require('express'),
     path = require('path'),
     morgan = require('morgan'),
     http = require('http'),
-    path = require('path'),
     mongoose = require('mongoose'),
+    fs = require('fs'),
+
+    routesPath = path.join(__dirname, "/controllers/api/"),
 
     Server = require('./middlewares/Server').Server,
     database = require('./config/database'),
@@ -42,10 +44,14 @@ app.use(require('less-middleware')('/less', {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(require('./controllers/api/index.js'));
-app.use(require('./controllers/api/users.js'));
-app.use(require('./controllers/api/messages.js'));
-app.use(require('./controllers/api/geocode.js'));
+// read all api modules from all versions
+fs.readdirSync(routesPath).forEach(function(version) {
+    fs.readdirSync(path.join(routesPath, version)).forEach(function(file) {
+        app.use(
+            require(path.join(routesPath, version, file))
+        );
+    });
+});
 
 
 // lets run the Angular

@@ -1,31 +1,32 @@
 /*jslint node: true */
 
-var routes = {};
+module.exports = function (version) {
+    var routes = {};
 
-routes.base = {path: '/api'};
+    routes.base = {path: '/api/' + version};
 
-// geocode action
-routes.geocode = {};
-routes.geocode.get = {};
+    // geocode action
+    routes.geocode = {};
+    routes.geocode.get = {};
 
-routes.geocode.get.coordinates = {path: routes.base.path + '/geocode/coordinates/:long/:lat'};
-routes.geocode.get.ip = {path: routes.base.path + '/geocode/ip'};
+    routes.geocode.get.coordinates = {path: routes.base.path + '/geocode/coordinates/:long/:lat'};
+    routes.geocode.get.ip = {path: routes.base.path + '/geocode/ip'};
 
-// messages action
-routes.messages = {};
-routes.messages.get = {};
-routes.messages.get.messages = {path: routes.base.path + '/messages'};
+    // messages action
+    routes.messages = {};
+    routes.messages.get = {};
+    routes.messages.get.messages = {path: routes.base.path + '/messages'};
 
-routes.messages.delete = {};
-routes.messages.delete.messages = {path: routes.base.path + '/messages/:id'};
+    routes.messages.delete = {};
+    routes.messages.delete.messages = {path: routes.base.path + '/messages/:id'};
 
-// users action
-routes.users = {};
-routes.users.put = {};
-routes.users.put.users = {path: routes.base.path + '/users/:username'};
+    // users action
+    routes.users = {};
+    routes.users.put = {};
+    routes.users.put.users = {path: routes.base.path + '/users/:username'};
 
-routes.users.delete = {};
-routes.users.delete.users = {path: routes.base.path + '/users/:username'};
+    routes.users.delete = {};
+    routes.users.delete.users = {path: routes.base.path + '/users/:username'};
 
-
-module.exports = routes;
+    return routes;
+};

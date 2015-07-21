@@ -5,8 +5,8 @@ var express = require('express'),
     router = express.Router(),
     requestIp = require('request-ip'),
 
-    routes = require('../../config/routes.js'),
-    Geocode = require('../../middlewares/Geocode.js').Geocode;
+    routes = require('../../../config/routes.js')(require('path').basename(__dirname)),
+    Geocode = require('../../../middlewares/Geocode.js').Geocode;
 
 /**
  *
@@ -14,6 +14,9 @@ var express = require('express'),
  * City and country are provided by Google Maps API.
  *
  */
+
+console.log(routes.geocode.get.coordinates.path);
+
 router.get(routes.geocode.get.coordinates.path, function (req, res) {
 
     var geo = new Geocode();
