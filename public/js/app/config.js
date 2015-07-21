@@ -14,6 +14,7 @@ config.routes.chat = {
 
 // rest routes
 config.routes.rest = {};
+config.routes.rest.base = '/api/';
 config.routes.rest.geocode = {
     coordinates: 'geocode/coordinates/',
     ip: 'geocode/ip/'

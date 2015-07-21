@@ -1,20 +1,20 @@
 'use strict';
 
 
-function AppConfig($routeProvider, RestangularProvider) {
-    $routeProvider.otherwise({redirectTo: '/login'});
+function AppConfig($routeProvider, appConfig, RestangularProvider) {
+    $routeProvider.otherwise({redirectTo: appConfig.routes.login.url});
 
-    RestangularProvider.setBaseUrl('/api/');
+    RestangularProvider.setBaseUrl(appConfig.routes.rest.base);
 }
 
-function AppRun($rootScope, $location, User) {
+function AppRun($rootScope, $location, appConfig, User) {
 
     var user = User.get();
 
     // check if user is known
     $rootScope.$on("$routeChangeStart", function (event, next, current) {
         if (!Object.keys(User.get()).length) {
-            $location.path('/login');
+            $location.path(appConfig.routes.login.url);
         }
     });
 }
@@ -43,12 +43,13 @@ function AppAutoFocusDirective() {
 }
 
 angular.module('ncApp', [
-        'ngRoute',
-        'ncApp.login',
-        'ncApp.chat',
-        'restangular'
+    'ngRoute',
+    'ncApp.config',
+    'ncApp.login',
+    'ncApp.chat',
+    'restangular'
 ])
-    .config(['$routeProvider', 'RestangularProvider', AppConfig])
-    .run(['$rootScope', '$location', 'User', AppRun])
+    .config(['$routeProvider', 'appConfig', 'RestangularProvider', AppConfig])
+    .run(['$rootScope', '$location', 'appConfig', 'User', AppRun])
     .factory('isSupported', ['$window', AppCheckSupport])
     .directive('autoFocus', [AppAutoFocusDirective]);
