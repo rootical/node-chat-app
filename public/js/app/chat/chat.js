@@ -63,7 +63,7 @@
             pkg = JSON.parse(wsEvent.data);
         } catch (err) {
 
-            //TODO error
+            //FUTURE create an error
 
         } finally {
 
@@ -154,7 +154,6 @@
 
     };
 
-    //TODO: "Someone is writing right now" functionality
     ChatCtrl.prototype.writingInProgress = function (event) {
         var vm = this,
             message = {};
