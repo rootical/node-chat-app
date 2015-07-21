@@ -1,15 +1,15 @@
 (function () {
     'use strict';
 
-    function LoginConfig($routeProvider) {
-        $routeProvider.when('/login', {
-            templateUrl: '/js/app/login/login.html',
+    function LoginConfig($routeProvider, appConfig) {
+        $routeProvider.when(appConfig.routes.login.url, {
+            templateUrl: appConfig.routes.login.template,
             controller: 'LoginCtrl',
             controllerAs: 'vm'
         });
     }
 
-    function LoginCtrl($location, User, Restangular, Geolocation, isSupported) {
+    function LoginCtrl($location, appConfig, User, Restangular, Geolocation, isSupported) {
         var vm = this,
             user;
 
@@ -30,10 +30,10 @@
         // check if there are soultions that allows to run the application
         angular.extend(vm, isSupported);
 
-        vm.login = (vm.login.bind(vm, $location, Restangular, User, Geolocation));
+        vm.login = (vm.login.bind(vm, $location, appConfig, Restangular, User, Geolocation));
     }
 
-    LoginCtrl.prototype.login = function ($location, Restangular, User, Geolocation) {
+    LoginCtrl.prototype.login = function ($location, appConfig, Restangular, User, Geolocation) {
         var vm = this,
             user = User.get();
 
@@ -48,7 +48,7 @@
 
                     Geolocation();
 
-                    $location.path('/chat');
+                    $location.path(appConfig.routes.chat.url);
 
                 }, function (data) {
                     if (data.data.hasOwnProperty('error')) {
@@ -58,7 +58,7 @@
         }
     };
 
-    function GeolocationFactory(User, Restangular, GeolocationIp) {
+    function GeolocationFactory(appConfig, User, Restangular, GeolocationIp) {
         var geo = function () {
 
             var long,
@@ -73,7 +73,7 @@
                 return;
             }
 
-            Restangular.one('geocode/coordinates/' + user.position.longitude + '/' + user.position.latitude).get().then(function (location) {
+            Restangular.one(appConfig.routes.rest.geocode.coordinates + user.position.longitude + '/' + user.position.latitude).get().then(function (location) {
                 user.location = location.plain();
                 User.set(user);
             }, fallback);
@@ -82,12 +82,12 @@
         return (geo);
     }
 
-    function GeolocationIpFactory(User, Restangular) {
+    function GeolocationIpFactory(appConfig, User, Restangular) {
         var user = User.get();
 
         return {
             get: function () {
-                Restangular.one('geocode/ip').get().then(function (location) {
+                Restangular.one(appConfig.routes.rest.geocode.ip).get().then(function (location) {
                     user.location = location.plain();
                     User.set(user);
                 }, function (data) {
@@ -122,10 +122,14 @@
     }
 
     // assigns whole stuff to angular methods
-    angular.module('ncApp.login', ['ngRoute', 'restangular'])
-        .config(['$routeProvider', LoginConfig])
-        .factory('GeolocationIp', ['User', 'Restangular', GeolocationIpFactory])
-        .factory('Geolocation', ['User', 'Restangular', 'GeolocationIp', GeolocationFactory])
+    angular.module('ncApp.login', [
+        'ngRoute',
+        'restangular',
+        'ncApp.config'
+    ])
+        .config(['$routeProvider', 'appConfig', LoginConfig])
+        .factory('GeolocationIp', ['appConfig', 'User', 'Restangular', GeolocationIpFactory])
+        .factory('Geolocation', ['appConfig', 'User', 'Restangular', 'GeolocationIp', GeolocationFactory])
         .factory('User', UserFactory)
-        .controller('LoginCtrl', ['$location', 'User', 'Restangular', 'Geolocation', 'isSupported', LoginCtrl]);
+        .controller('LoginCtrl', ['$location', 'appConfig', 'User', 'Restangular', 'Geolocation', 'isSupported', LoginCtrl]);
 })();

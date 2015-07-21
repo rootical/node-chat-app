@@ -2,9 +2,9 @@
 (function () {
     'use strict';
 
-    function ChatConfig($routeProvider) {
-        $routeProvider.when('/chat', {
-            templateUrl: '/js/app/chat/chat.html',
+    function ChatConfig($routeProvider, appConfig) {
+        $routeProvider.when(appConfig.routes.chat.url, {
+            templateUrl: appConfig.routes.chat.template,
             controller: 'ChatCtrl',
             controllerAs: 'vm'
         });
@@ -211,9 +211,10 @@
     angular.module('ncApp.chat', [
         'ngRoute',
         'luegg.directives',
-        'restangular'
+        'restangular',
+        'ncApp.config'
     ])
-        .config(['$routeProvider', ChatConfig])
+        .config(['$routeProvider', 'appConfig', ChatConfig])
         .controller('ChatCtrl', ['$scope', '$window', 'User', 'Restangular', ChatCtrl]);
 
 })();
