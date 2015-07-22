@@ -1,24 +1,10 @@
+@import "reset.less";
 @import "config.less";
 @import "chat.less";
 @import "login.less";
 
 @import "flag.less";
 
+// mixins
 
-// box shadows
-
-.box-shadow(@horizontal: 0, @vertical: 0, @blur: 6px, @r: 0, @g: 0, @b: 0, @alpha: 0.75) {
-    -moz-box-shadow: @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
-    -o-box-shadow: @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
-    -webkit-box-shadow: @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
-    box-shadow: @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
-}
-
-.inset-box-shadow(@horizontal: 0, @vertical: 0px, @blur: 6px, @r: 0, @g: 0, @b: 0, @alpha: 0.75) {
-    -moz-box-shadow: inset @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
-    -o-box-shadow: inset @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
-    -webkit-box-shadow: inset @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
-    box-shadow: inset @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
-}
-
-//
+@import "./mixins/box-shadow.less";

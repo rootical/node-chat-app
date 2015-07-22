@@ -1,0 +1,82 @@
+@import "reset.less";
+// mixins
+@import "./mixins/box-shadow.less";
+@import "./mixins/background-color-alpha.less";
+
+body {
+    font-family: sans-serif;
+    background-color: lightgray;
+}
+
+#Page {
+    h1 {
+        margin: 0.4em 0.3em;
+
+        font-size: 2.5em;
+        font-weight: bold;
+        text-shadow: -1px -1px 1px #fff, 1px 1px 1px #000;
+        color: darkgray;
+        opacity: 0.3;
+    }
+
+    ul {
+        padding: 0.5em 2em;
+        list-style-type: none;
+
+        li {
+            display: block;
+            width: 100%;
+            height: 40px;
+
+            .method {
+                display: inline-block;
+                width: 4em;
+                padding: 0.5em 1em;
+                border-radius: 0.2em;
+
+                text-align: center;
+                font-size: 0.75em;
+                color: dimgray;
+
+                .box-shadow-double(1px, 1px, 1px, 0, 0, 0, 0.3, -1px, -1px, 1px, 255, 255, 255, 0.4);
+            }
+
+            .method.get {
+                .background-color-alpha(#90EE90, 0.3);
+            }
+
+            .method.post {
+                .background-color-alpha(#90EE90, 0.3);
+            }
+
+            .method.put {
+                .background-color-alpha(#9370DB, 0.15);
+            }
+
+            .method.update {
+                .background-color-alpha(#ADD8E6, 0.3);
+            }
+
+            .method.delete {
+                .background-color-alpha(#F08080, 0.2);
+            }
+
+            .method.options {
+                .background-color-alpha(#A9A9A9, 0.15);
+            }
+
+            .path {
+                height: 100%;
+                margin: 0 1em;
+
+                font-family: monospace;
+
+                                text-shadow: -1px -1px 1px whitesmoke, 1px 1px 1px darkgray;
+            }
+        }
+    }
+
+
+
+
+}

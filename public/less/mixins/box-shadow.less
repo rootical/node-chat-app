@@ -1,0 +1,36 @@
+.box-shadow(@horizontal: 0, @vertical: 0, @blur: 6px, @r: 0, @g: 0, @b: 0, @alpha: 0.75) {
+    -moz-box-shadow: @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+    -o-box-shadow: @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+    -webkit-box-shadow: @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+    box-shadow: @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+}
+
+.inset-box-shadow(@horizontal: 0, @vertical: 0px, @blur: 6px, @r: 0, @g: 0, @b: 0, @alpha: 0.75) {
+    -moz-box-shadow: inset @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+    -o-box-shadow: inset @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+    -webkit-box-shadow: inset @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+    box-shadow: inset @horizontal @vertical @blur rgba(@r, @g, @b, @alpha);
+}
+
+.box-shadow-double(
+    @horizontal0: 1px,
+    @vertical0: 1px,
+    @blur0: 1px,
+    @r0: 0,
+    @g0: 0,
+    @b0: 0,
+    @alpha0: 0.75,
+
+    @horizontal1: -1px,
+    @vertical1: -1px,
+    @blur1: 1px,
+    @r1: 255,
+    @g1: 255,
+    @b1: 255,
+    @alpha1: 0.75
+) {
+    -moz-box-shadow: @horizontal0 @vertical0 @blur0 rgba(@r0, @g0, @b0, @alpha0), @horizontal1 @vertical1 @blur1 rgba(@r1, @g1, @b1, @alpha1);
+    -o-box-shadow: @horizontal0 @vertical0 @blur0 rgba(@r0, @g0, @b0, @alpha0), @horizontal1 @vertical1 @blur1 rgba(@r1, @g1, @b1, @alpha1);
+    -webkit-box-shadow: @horizontal0 @vertical0 @blur0 rgba(@r0, @g0, @b0, @alpha0), @horizontal1 @vertical1 @blur1 rgba(@r1, @g1, @b1, @alpha1);
+    box-shadow: @horizontal0 @vertical0 @blur0 rgba(@r0, @g0, @b0, @alpha0), @horizontal1 @vertical1 @blur1 rgba(@r1, @g1, @b1, @alpha1);
+}

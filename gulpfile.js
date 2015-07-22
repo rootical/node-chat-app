@@ -9,12 +9,18 @@ var gulp = require('gulp'),
 
 // compiling less
 gulp.task('less', function () {
-  return gulp.src('./public/less/main.less')
-    .pipe(less({
-      paths: [ path.join(__dirname, 'public', 'less') ]
-    }))
-    .pipe(rename('style.css'))
-    .pipe(gulp.dest('./public/css'));
+    gulp.src('./public/less/main.less')
+        .pipe(less({
+            paths: [ path.join(__dirname, 'public', 'less') ]
+        }))
+        .pipe(rename('style.css'))
+        .pipe(gulp.dest('./public/css'));
+
+    gulp.src('./public/less/api.less')
+        .pipe(less({
+            paths: [ path.join(__dirname, 'public', 'less') ]
+        }))
+        .pipe(gulp.dest('./public/css'));
 });
 
 // minifying js and css

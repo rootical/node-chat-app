@@ -1,0 +1,8 @@
+extends ../_layouts/api.jade
+block content
+    #ContentMain
+        h1 API methods list with parameters
+        ul
+            each route in routes
+                each val, key in route.methods
+                    include ../_layouts/route.jade

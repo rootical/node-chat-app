@@ -15,8 +15,6 @@ var express = require('express'),
  *
  */
 
-console.log(routes.geocode.get.coordinates.path);
-
 router.get(routes.geocode.get.coordinates.path, function (req, res) {
 
     var geo = new Geocode();
