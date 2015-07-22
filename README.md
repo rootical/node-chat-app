@@ -43,7 +43,7 @@ At first you should start Gulp task runner:
     nodemon appliaction.js
 ```
 
-Index URL for [this](https:\\localhost:3000\) project:
+Index URL for [this](https://localhost:3000/) project:
 ```
     https:\\localhost:3000\
 ```
