@@ -22,7 +22,7 @@
 
         vm.restangular = Restangular;
 
-        vm.ws = new WebSocket("ws://" + $window.location.host);
+        vm.ws = new WebSocket("wss://" + $window.location.host);
 
         vm.ws.onopen = (vm.wsOnOpen.bind(vm, $scope));
         vm.ws.onmessage = (vm.wsOnMessage.bind(vm, $scope));

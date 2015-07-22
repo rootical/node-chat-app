@@ -4,7 +4,7 @@
 var express = require('express'),
     path = require('path'),
     morgan = require('morgan'),
-    http = require('http'),
+    https = require('https'),
     mongoose = require('mongoose'),
     fs = require('fs'),
 
@@ -12,6 +12,11 @@ var express = require('express'),
 
     Server = require('./middlewares/Server').Server,
     database = require('./config/database'),
+
+    // ssl
+    privateKey = fs.readFileSync('./ssl/server.key'),
+    certificate = fs.readFileSync('./ssl/server.crt'),
+    ca = fs.readFileSync('./ssl/ca.crt'),
 
     // clean variables
     wss,
@@ -61,8 +66,15 @@ app.get('/', function (req, res) {
 
 //console.log(Users.simple.name);
 
-app.server = http.createServer(app);
-app.server.listen(3000);
+app.server = https.createServer({
+    key: privateKey,
+    cert: certificate,
+    ca: ca,
+    requestCert: true,
+    rejectUnauthorized: false
+}, app);
+
+app.server.listen(3000, function () {});
 
 // web services server start
 app.wss = new Server({server: app.server});
